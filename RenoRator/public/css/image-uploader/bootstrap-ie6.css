@@ -1,0 +1,11 @@
+﻿@charset 'UTF-8';
+#fileupload .span1,#fileupload .span2,#fileupload .span3,#fileupload .span4,#fileupload .span5,#fileupload .span6,#fileupload .span7,#fileupload .span8,#fileupload .span9,#fileupload .span10,#fileupload .span11,#fileupload .span12{display:inline;float:left;margin-left:20px;}
+#fileupload input{width:auto;}
+#fileupload .modal{position:absolute;top:50%;filter:none;}
+#fileupload .navbar-fixed-top{position:absolute;}
+#fileupload .nav li{display:block;float:left;}
+#fileupload .nav li a{display:block;padding:10px 10px 11px;line-height:19px;}
+#fileupload .navbar .nav li a{color:#999999;}
+#fileupload .navbar .nav li a:hover{color:#ffffff;text-decoration:none;}
+#fileupload .nav-pills .active a{color:#ffffff;background-color:#0088cc;}
+#fileupload .nav-pills a:hover{text-decoration:none;}

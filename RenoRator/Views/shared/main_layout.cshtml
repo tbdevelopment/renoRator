@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<html>
+    @using RenoRator.Models
+	<head>
+		<title>RenoRator</title>
+        
+        <link rel="stylesheet" type="text/css" href="/public/css/styles.css" />
+        <link href="../../public/css/ui-lightness/jquery-ui-1.8.24.custom.css" rel="stylesheet"
+            type="text/css" />
+        <link href="~/public/css/galleriffic/jush.css" rel="stylesheet" />
+        <link href="~/public/css/galleriffic/galleriffic-2.css" rel="stylesheet" />
+
+        <meta name="viewport" content="width=device-width" />
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/jquery-ui-1.8.24.custom.min.js"></script>
+        <script src="~/Scripts/galleriffic/jush.js"></script>
+        <script src="~/Scripts/galleriffic/jquery.galleriffic.js"></script>
+        <script src="~/Scripts/galleriffic/jquery.opacityrollover.js"></script>
+        <script src="~/Scripts/jquery.rating.js"></script>
+        <script type="text/javascript" src="~/Scripts/sliders.js"></script>
+
+        <script type="text/javascript" >
+            $(document).ready(function () {
+                $("#login_btn").hover(
+                    function () { $("#login_bar").show(); }
+                );
+                $("#login_bar").hover(
+                    function () { $("#login_bar").show(); },
+                    function () { $("#login_bar").hide(); }
+                );
+                $(".menu-item").hover(function () {
+                    $("#login_bar").hide();
+                });
+                if ($('.profile_links').length) {
+                    $.ajax({
+                        dataType: 'text',
+                        url: '@Url.Action("GetNewMessageCount", "Message")',
+                        success: function (data) {
+                            var newMessages = parseInt(data);
+                            if (newMessages > 0) {
+                                $('.new_email_icon').html(newMessages);
+                                $('.new_email_icon').css('visibility','visible');
+                            } else 
+                                $('.new_email_icon').css('visibility', 'hidden');
+                        }
+                    });
+                }
+//                $("#logout_btn").click(function (e) {
+//                    e.preventDefault();
+//                    $.ajax({
+//                        type: "POST",
+//                        url: "User/Logout",
+//                        success: function () {
+//                            window.location.reload();
+//                        }
+//                    });
+//                });
+            });
+            document.write('<style>.noscript { display: none; }</style>');
+        </script>
+	</head>
+	<body>
+        @Flash.FlashMessage(TempData)
+		<div class="main_container">
+			<div class="header">
+				<div class="content">
+                    <a href='/User/Home'>      
+					    <div class="logo">
+						    <img height="100" src="/public/img/logo.png" />
+					    </div>
+                    </a>
+			  		<div id='cssmenu'>
+                          <a href='@Url.Action("Home", "User")'>
+                              <div class="menu-item">
+                                  <img src="~/public/img/icons/home.png" />
+                                  <div class="menu-text">Home</div>
+                              </div>
+                          </a>
+                       @*   <a href='#'>
+                              <div class="menu-item mi-child">
+                                  <img src="~/public/img/icons/Search.png" />
+                                  <div class="menu-text">Search</div>
+                              </div>
+                          </a>*@
+                          <a href='@Url.Action("Ads", "JobAd")'>
+                              <div class="menu-item mi-child">
+                                  <img src="~/public/img/icons/job_ads.png" />
+                                  <div class="menu-text">Job Ads</div>
+                              </div>
+                          </a>
+                          <a href='@Url.Action("Contractors", "User")'>
+                              <div class="menu-item mi-child">
+                                  <img src="~/public/img/icons/contractors.png" />
+                                  <div class="menu-text">Contractors</div>
+                              </div>
+                          </a>
+                          @if (Session["userID"] != null)
+                            {
+                              <a href='@Url.Action("Logout","User")'>
+                                  <div id="logout_btn" class="menu-item-end">
+                                      <img src="~/public/img/icons/login.png" />
+                                      <div class="menu-text">Logout</div>
+                                  </div>
+                              </a>
+                            }
+                            else
+                            {
+                              <a href="@Url.Action("Login", "User")">
+                                  <div id="login_btn" class="menu-item-end">
+                                      <img src="~/public/img/icons/login.png" />
+                                      <div class="menu-text">Login</div>
+                                  </div>
+                              </a>
+                            }
+                          
+				
+					</div>                                        
+                    @if (Session["userID"] != null)
+                    {
+                        <div class="logged_in_info">
+                            <div class="user_profile_img">
+                                <a href="@Url.Action("Profile", "User", new { id=(int)@Session["userID"] })">
+                                    <img src="@Session["profilepic"]" class="profilePic" />
+                                </a>
+                            </div>
+                            <div class="profile_links">
+                                @Html.ActionLink("Profile", "Profile", "User", new { id = Convert.ToInt32(@Session["userID"]) }, new { style="display:block;margin:10px 0;" })
+                                <a id="user_inbox" href="/Message/Received">Inbox</a>
+                                <div class="new_email_icon"></div>
+                            </div>
+                            
+                        </div>
+                    }
+                    else
+                    {
+                        var redirectId = 0;
+                        <div id="login_bar">
+                            <div class="form_container" style="width:250px;color:White;">
+                                @if (ViewContext.Controller.ValueProvider.GetValue("action").RawValue.ToString() == "Profile" &&
+                                     ViewContext.Controller.ValueProvider.GetValue("controller").RawValue.ToString() == "User")
+                                {
+                                    redirectId = ViewBag.user;
+                                }
+                                else if (ViewContext.Controller.ValueProvider.GetValue("action").RawValue.ToString() == "Review" &&
+                                     ViewContext.Controller.ValueProvider.GetValue("controller").RawValue.ToString() == "User")
+                                {
+                                    redirectId = Model.reviewID;
+                                }
+                                @using (Html.BeginForm("Login", "User", new { 
+                                    redirectPage = ViewContext.Controller.ValueProvider.GetValue("action").RawValue,
+                                    redirectController = ViewContext.Controller.ValueProvider.GetValue("controller").RawValue,
+                                    rId = redirectId
+                                }, FormMethod.Post))
+                                {
+                                    @Html.ValidationSummary(true)
+                                    <div class="editor-label">
+                                        Email:
+                                    </div>
+                                    <div class="editor-field">
+                                        @Html.Editor("user_email")
+                                    </div>       
+                                    <div class="editor-label">
+                                        Password:
+                                    </div>
+                                    <div class="editor-field">
+                                        @Html.Password("password")
+                                    </div>
+                                    <p>
+                                        <input type="submit" value="Log me in" class="orange_btn" />
+                                    </p>
+                                }
+                            </div>
+                        </div>
+                    }
+				</div>
+		    </div>
+		    <div class="body">
+                <div class="content">
+                    @RenderBody()
+                </div>                
+                <div class="clear"></div>
+            </div>
+            <div class="footer">
+				<div class="content">
+                    <div class="contact_us">
+                        <h2>Contact Us</h2>
+                        123 Test Street, London, ON, Canada <br />
+                        (519)555-5555 | 
+                        <a href="mailto:test@test.com">test@test.com</a>
+                    </div>
+                    <div class="social">
+					    <img src="/public/img/facebook-icon.png">
+					    <img src="/public/img/google-icon.png">
+					    <img src="/public/img/twitter-icon.png">
+					    <h4>&copy; RenoRator.com - 2012 - All rights reserved</h4>
+                    </div>
+				</div>
+		    </div>
+		</div>
+	</body>
+</html>

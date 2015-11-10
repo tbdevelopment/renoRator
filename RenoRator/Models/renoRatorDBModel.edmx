@@ -1,0 +1,1978 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="renoratordbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="renoratordbModelStoreContainer">
+          <EntitySet Name="address" EntityType="renoratordbModel.Store.address" store:Type="Tables" Schema="renoratordb" />
+          <EntitySet Name="city" EntityType="renoratordbModel.Store.city" store:Type="Tables" Schema="renoratordb" />
+          <EntitySet Name="gallery" EntityType="renoratordbModel.Store.gallery" store:Type="Tables" Schema="renoratordb" />
+          <EntitySet Name="job" EntityType="renoratordbModel.Store.job" store:Type="Tables" Schema="renoratordb" />
+          <EntitySet Name="jobad" EntityType="renoratordbModel.Store.jobad" store:Type="Tables" Schema="renoratordb" />
+          <EntitySet Name="message" EntityType="renoratordbModel.Store.message" store:Type="Tables" Schema="renoratordb" />
+          <EntitySet Name="phone" EntityType="renoratordbModel.Store.phone" store:Type="Tables" Schema="renoratordb" />
+          <EntitySet Name="phonetype" EntityType="renoratordbModel.Store.phonetype" store:Type="Tables" Schema="renoratordb" />
+          <EntitySet Name="photo" EntityType="renoratordbModel.Store.photo" store:Type="Tables" Schema="renoratordb" />
+          <EntitySet Name="pricerange" EntityType="renoratordbModel.Store.pricerange" store:Type="Tables" Schema="renoratordb" />
+          <EntitySet Name="province" EntityType="renoratordbModel.Store.province" store:Type="Tables" Schema="renoratordb" />
+          <EntitySet Name="ratingquestion" EntityType="renoratordbModel.Store.ratingquestion" store:Type="Tables" Schema="renoratordb" />
+          <EntitySet Name="review" EntityType="renoratordbModel.Store.review" store:Type="Tables" Schema="renoratordb" />
+          <EntitySet Name="reviewcomment" EntityType="renoratordbModel.Store.reviewcomment" store:Type="Tables" Schema="renoratordb" />
+          <EntitySet Name="reviewhelpful" EntityType="renoratordbModel.Store.reviewhelpful" store:Type="Tables" Schema="renoratordb" />
+          <EntitySet Name="reviewrating" EntityType="renoratordbModel.Store.reviewrating" store:Type="Tables" Schema="renoratordb" />
+          <EntitySet Name="user" EntityType="renoratordbModel.Store.user" store:Type="Tables" Schema="renoratordb" />
+          <EntitySet Name="usertype" EntityType="renoratordbModel.Store.usertype" store:Type="Tables" Schema="renoratordb" />
+          <AssociationSet Name="city_ibfk_1" Association="renoratordbModel.Store.city_ibfk_1">
+            <End Role="province" EntitySet="province" />
+            <End Role="city" EntitySet="city" />
+          </AssociationSet>
+          <AssociationSet Name="city_id" Association="renoratordbModel.Store.city_id">
+            <End Role="city" EntitySet="city" />
+            <End Role="address" EntitySet="address" />
+          </AssociationSet>
+          <AssociationSet Name="job_ibfk_1" Association="renoratordbModel.Store.job_ibfk_1">
+            <End Role="address" EntitySet="address" />
+            <End Role="job" EntitySet="job" />
+          </AssociationSet>
+          <AssociationSet Name="job_ibfk_2" Association="renoratordbModel.Store.job_ibfk_2">
+            <End Role="pricerange" EntitySet="pricerange" />
+            <End Role="job" EntitySet="job" />
+          </AssociationSet>
+          <AssociationSet Name="job_ibfk_3" Association="renoratordbModel.Store.job_ibfk_3">
+            <End Role="gallery" EntitySet="gallery" />
+            <End Role="job" EntitySet="job" />
+          </AssociationSet>
+          <AssociationSet Name="job_ibfk_4" Association="renoratordbModel.Store.job_ibfk_4">
+            <End Role="user" EntitySet="user" />
+            <End Role="job" EntitySet="job" />
+          </AssociationSet>
+          <AssociationSet Name="job_ibfk_5" Association="renoratordbModel.Store.job_ibfk_5">
+            <End Role="user" EntitySet="user" />
+            <End Role="job" EntitySet="job" />
+          </AssociationSet>
+          <AssociationSet Name="jobad_ibfk_1" Association="renoratordbModel.Store.jobad_ibfk_1">
+            <End Role="user" EntitySet="user" />
+            <End Role="jobad" EntitySet="jobad" />
+          </AssociationSet>
+          <AssociationSet Name="jobad_ibfk_2" Association="renoratordbModel.Store.jobad_ibfk_2">
+            <End Role="address" EntitySet="address" />
+            <End Role="jobad" EntitySet="jobad" />
+          </AssociationSet>
+          <AssociationSet Name="jobad_ibfk_3" Association="renoratordbModel.Store.jobad_ibfk_3">
+            <End Role="pricerange" EntitySet="pricerange" />
+            <End Role="jobad" EntitySet="jobad" />
+          </AssociationSet>
+          <AssociationSet Name="jobad_ibfk_4" Association="renoratordbModel.Store.jobad_ibfk_4">
+            <End Role="gallery" EntitySet="gallery" />
+            <End Role="jobad" EntitySet="jobad" />
+          </AssociationSet>
+          <AssociationSet Name="message_ibfk_1" Association="renoratordbModel.Store.message_ibfk_1">
+            <End Role="user" EntitySet="user" />
+            <End Role="message" EntitySet="message" />
+          </AssociationSet>
+          <AssociationSet Name="message_ibfk_2" Association="renoratordbModel.Store.message_ibfk_2">
+            <End Role="user" EntitySet="user" />
+            <End Role="message" EntitySet="message" />
+          </AssociationSet>
+          <AssociationSet Name="phone_ibfk_1" Association="renoratordbModel.Store.phone_ibfk_1">
+            <End Role="user" EntitySet="user" />
+            <End Role="phone" EntitySet="phone" />
+          </AssociationSet>
+          <AssociationSet Name="phone_ibfk_2" Association="renoratordbModel.Store.phone_ibfk_2">
+            <End Role="phonetype" EntitySet="phonetype" />
+            <End Role="phone" EntitySet="phone" />
+          </AssociationSet>
+          <AssociationSet Name="photo_ibfk_1" Association="renoratordbModel.Store.photo_ibfk_1">
+            <End Role="gallery" EntitySet="gallery" />
+            <End Role="photo" EntitySet="photo" />
+          </AssociationSet>
+          <AssociationSet Name="review_ibfk_1" Association="renoratordbModel.Store.review_ibfk_1">
+            <End Role="user" EntitySet="user" />
+            <End Role="review" EntitySet="review" />
+          </AssociationSet>
+          <AssociationSet Name="review_ibfk_2" Association="renoratordbModel.Store.review_ibfk_2">
+            <End Role="job" EntitySet="job" />
+            <End Role="review" EntitySet="review" />
+          </AssociationSet>
+          <AssociationSet Name="review_ibfk_3" Association="renoratordbModel.Store.review_ibfk_3">
+            <End Role="user" EntitySet="user" />
+            <End Role="review" EntitySet="review" />
+          </AssociationSet>
+          <AssociationSet Name="review_ibfk_4" Association="renoratordbModel.Store.review_ibfk_4">
+            <End Role="gallery" EntitySet="gallery" />
+            <End Role="review" EntitySet="review" />
+          </AssociationSet>
+          <AssociationSet Name="reviewcomment_ibfk_1" Association="renoratordbModel.Store.reviewcomment_ibfk_1">
+            <End Role="user" EntitySet="user" />
+            <End Role="reviewcomment" EntitySet="reviewcomment" />
+          </AssociationSet>
+          <AssociationSet Name="reviewcomment_ibfk_2" Association="renoratordbModel.Store.reviewcomment_ibfk_2">
+            <End Role="review" EntitySet="review" />
+            <End Role="reviewcomment" EntitySet="reviewcomment" />
+          </AssociationSet>
+          <AssociationSet Name="reviewhelpful_ibfk_1" Association="renoratordbModel.Store.reviewhelpful_ibfk_1">
+            <End Role="review" EntitySet="review" />
+            <End Role="reviewhelpful" EntitySet="reviewhelpful" />
+          </AssociationSet>
+          <AssociationSet Name="reviewhelpful_ibfk_2" Association="renoratordbModel.Store.reviewhelpful_ibfk_2">
+            <End Role="user" EntitySet="user" />
+            <End Role="reviewhelpful" EntitySet="reviewhelpful" />
+          </AssociationSet>
+          <AssociationSet Name="reviewrating_ibfk_1" Association="renoratordbModel.Store.reviewrating_ibfk_1">
+            <End Role="review" EntitySet="review" />
+            <End Role="reviewrating" EntitySet="reviewrating" />
+          </AssociationSet>
+          <AssociationSet Name="reviewrating_ibfk_2" Association="renoratordbModel.Store.reviewrating_ibfk_2">
+            <End Role="ratingquestion" EntitySet="ratingquestion" />
+            <End Role="reviewrating" EntitySet="reviewrating" />
+          </AssociationSet>
+          <AssociationSet Name="user_ibfk_1" Association="renoratordbModel.Store.user_ibfk_1">
+            <End Role="usertype" EntitySet="usertype" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+          <AssociationSet Name="user_ibfk_2" Association="renoratordbModel.Store.user_ibfk_2">
+            <End Role="gallery" EntitySet="gallery" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+          <AssociationSet Name="user_ibfk_3" Association="renoratordbModel.Store.user_ibfk_3">
+            <End Role="photo" EntitySet="photo" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+          <AssociationSet Name="user_ibfk_4" Association="renoratordbModel.Store.user_ibfk_4">
+            <End Role="address" EntitySet="address" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+          <AssociationSet Name="user_ibfk_5" Association="renoratordbModel.Store.user_ibfk_5">
+            <End Role="gallery" EntitySet="gallery" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="address">
+          <Key>
+            <PropertyRef Name="addressID" />
+          </Key>
+          <Property Name="addressID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="addressLine1" Type="varchar" Nullable="false" MaxLength="256" />
+          <Property Name="addressLine2" Type="varchar" MaxLength="256" />
+          <Property Name="postalCode" Type="varchar" Nullable="false" MaxLength="6" />
+          <Property Name="cityID" Type="int" Nullable="false" />
+          <Property Name="country" Type="varchar" Nullable="false" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="city">
+          <Key>
+            <PropertyRef Name="cityID" />
+          </Key>
+          <Property Name="cityID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="provinceID" Type="int" Nullable="false" />
+          <Property Name="city" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="gallery">
+          <Key>
+            <PropertyRef Name="galleryID" />
+          </Key>
+          <Property Name="galleryID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="description" Type="varchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="job">
+          <Key>
+            <PropertyRef Name="jobID" />
+          </Key>
+          <Property Name="jobID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="galleryID" Type="int" />
+          <Property Name="description" Type="varchar" Nullable="false" MaxLength="10000" />
+          <Property Name="startDate" Type="date" />
+          <Property Name="endDate" Type="date" Nullable="false" />
+          <Property Name="priceRangeID" Type="int" Nullable="false" />
+          <Property Name="userID" Type="int" />
+          <Property Name="contractorUserID" Type="int" Nullable="false" />
+          <Property Name="addressID" Type="int" />
+          <Property Name="tags" Type="varchar" MaxLength="10000" />
+          <Property Name="title" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="jobad">
+          <Key>
+            <PropertyRef Name="jobAdID" />
+          </Key>
+          <Property Name="jobAdID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="userID" Type="int" Nullable="false" />
+          <Property Name="addressID" Type="int" Nullable="false" />
+          <Property Name="priceRangeID" Type="int" />
+          <Property Name="tags" Type="varchar" MaxLength="10000" />
+          <Property Name="description" Type="varchar" Nullable="false" MaxLength="10000" />
+          <Property Name="galleryID" Type="int" />
+          <Property Name="targetEndDate" Type="date" Nullable="false" />
+          <Property Name="active" Type="bool" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="message">
+          <Key>
+            <PropertyRef Name="messageID" />
+          </Key>
+          <Property Name="messageID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="senderID" Type="int" Nullable="false" />
+          <Property Name="receiverID" Type="int" Nullable="false" />
+          <Property Name="msgSubject" Type="varchar" />
+          <Property Name="msgBody" Type="varchar" Nullable="false" MaxLength="10000" />
+          <Property Name="msgDate" Type="timestamp" Nullable="false" Precision="0" />
+          <Property Name="is_read" Type="bool" Nullable="false" />
+          <Property Name="deletedBySender" Type="bool" />
+          <Property Name="deletedByReceiver" Type="bool" />
+        </EntityType>
+        <EntityType Name="phone">
+          <Key>
+            <PropertyRef Name="phoneID" />
+          </Key>
+          <Property Name="phoneID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="userID" Type="int" Nullable="false" />
+          <Property Name="phoneTypeID" Type="int" Nullable="false" />
+          <Property Name="phoneNo" Type="varchar" Nullable="false" MaxLength="15" />
+          <Property Name="extension" Type="varchar" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="phonetype">
+          <Key>
+            <PropertyRef Name="phoneTypeID" />
+          </Key>
+          <Property Name="phoneTypeID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="varchar" Nullable="false" MaxLength="16" />
+        </EntityType>
+        <EntityType Name="photo">
+          <Key>
+            <PropertyRef Name="photoID" />
+          </Key>
+          <Property Name="photoID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="path" Type="varchar" Nullable="false" MaxLength="1028" />
+          <Property Name="galleryID" Type="int" />
+          <Property Name="description" Type="varchar" MaxLength="100" />
+          <Property Name="thumbPath" Type="varchar" Nullable="false" MaxLength="1028" />
+        </EntityType>
+        <EntityType Name="pricerange">
+          <Key>
+            <PropertyRef Name="priceRangeID" />
+          </Key>
+          <Property Name="priceRangeID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="min" Type="int" Nullable="false" />
+          <Property Name="max" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="province">
+          <Key>
+            <PropertyRef Name="provinceID" />
+          </Key>
+          <Property Name="provinceID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="province" Type="varchar" Nullable="false" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="ratingquestion">
+          <Key>
+            <PropertyRef Name="ratingQuestionID" />
+          </Key>
+          <Property Name="ratingQuestionID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="question" Type="varchar" Nullable="false" MaxLength="512" />
+        </EntityType>
+        <EntityType Name="review">
+          <Key>
+            <PropertyRef Name="reviewID" />
+          </Key>
+          <Property Name="reviewID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="userID" Type="int" Nullable="false" />
+          <Property Name="jobID" Type="int" />
+          <Property Name="contractorUserID" Type="int" Nullable="false" />
+          <Property Name="review" Type="varchar" Nullable="false" MaxLength="10000" />
+          <Property Name="galleryID" Type="int" />
+        </EntityType>
+        <EntityType Name="reviewcomment">
+          <Key>
+            <PropertyRef Name="reviewCommentID" />
+          </Key>
+          <Property Name="reviewCommentID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="userID" Type="int" Nullable="false" />
+          <Property Name="reviewID" Type="int" Nullable="false" />
+          <Property Name="comment" Type="varchar" Nullable="false" MaxLength="10000" />
+        </EntityType>
+        <EntityType Name="reviewhelpful">
+          <Key>
+            <PropertyRef Name="reviewHelpfulID" />
+          </Key>
+          <Property Name="reviewHelpfulID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="reviewID" Type="int" Nullable="false" />
+          <Property Name="userID" Type="int" Nullable="false" />
+          <Property Name="isGood" Type="bool" Nullable="false" />
+        </EntityType>
+        <EntityType Name="reviewrating">
+          <Key>
+            <PropertyRef Name="reviewRatingID" />
+          </Key>
+          <Property Name="reviewRatingID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="reviewID" Type="int" Nullable="false" />
+          <Property Name="ratingQuestionID" Type="int" Nullable="false" />
+          <Property Name="rating" Type="double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="userID" />
+          </Key>
+          <Property Name="userID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="userTypeID" Type="int" Nullable="false" />
+          <Property Name="fname" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="lname" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="email" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="bio" Type="varchar" MaxLength="10000" />
+          <Property Name="password" Type="varchar" Nullable="false" MaxLength="64" />
+          <Property Name="salt" Type="varchar" Nullable="false" MaxLength="16" />
+          <Property Name="profileGalleryID" Type="int" />
+          <Property Name="profilePhotoID" Type="int" />
+          <Property Name="addressID" Type="int" />
+          <Property Name="portfolioGalleryID" Type="int" />
+          <Property Name="verified" Type="bit" Nullable="false" />
+          <Property Name="company" Type="varchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="usertype">
+          <Key>
+            <PropertyRef Name="userTypeID" />
+          </Key>
+          <Property Name="userTypeID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="varchar" Nullable="false" MaxLength="25" />
+        </EntityType>
+        <Association Name="city_ibfk_1">
+          <End Role="province" Type="renoratordbModel.Store.province" Multiplicity="1" />
+          <End Role="city" Type="renoratordbModel.Store.city" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="province">
+              <PropertyRef Name="provinceID" />
+            </Principal>
+            <Dependent Role="city">
+              <PropertyRef Name="provinceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="city_id">
+          <End Role="city" Type="renoratordbModel.Store.city" Multiplicity="1" />
+          <End Role="address" Type="renoratordbModel.Store.address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="city">
+              <PropertyRef Name="cityID" />
+            </Principal>
+            <Dependent Role="address">
+              <PropertyRef Name="cityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="job_ibfk_1">
+          <End Role="address" Type="renoratordbModel.Store.address" Multiplicity="0..1" />
+          <End Role="job" Type="renoratordbModel.Store.job" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="address">
+              <PropertyRef Name="addressID" />
+            </Principal>
+            <Dependent Role="job">
+              <PropertyRef Name="addressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="job_ibfk_2">
+          <End Role="pricerange" Type="renoratordbModel.Store.pricerange" Multiplicity="1" />
+          <End Role="job" Type="renoratordbModel.Store.job" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pricerange">
+              <PropertyRef Name="priceRangeID" />
+            </Principal>
+            <Dependent Role="job">
+              <PropertyRef Name="priceRangeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="job_ibfk_3">
+          <End Role="gallery" Type="renoratordbModel.Store.gallery" Multiplicity="0..1" />
+          <End Role="job" Type="renoratordbModel.Store.job" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gallery">
+              <PropertyRef Name="galleryID" />
+            </Principal>
+            <Dependent Role="job">
+              <PropertyRef Name="galleryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="job_ibfk_4">
+          <End Role="user" Type="renoratordbModel.Store.user" Multiplicity="0..1" />
+          <End Role="job" Type="renoratordbModel.Store.job" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="job">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="job_ibfk_5">
+          <End Role="user" Type="renoratordbModel.Store.user" Multiplicity="1" />
+          <End Role="job" Type="renoratordbModel.Store.job" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="job">
+              <PropertyRef Name="contractorUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="jobad_ibfk_1">
+          <End Role="user" Type="renoratordbModel.Store.user" Multiplicity="1" />
+          <End Role="jobad" Type="renoratordbModel.Store.jobad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="jobad">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="jobad_ibfk_2">
+          <End Role="address" Type="renoratordbModel.Store.address" Multiplicity="1" />
+          <End Role="jobad" Type="renoratordbModel.Store.jobad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="address">
+              <PropertyRef Name="addressID" />
+            </Principal>
+            <Dependent Role="jobad">
+              <PropertyRef Name="addressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="jobad_ibfk_3">
+          <End Role="pricerange" Type="renoratordbModel.Store.pricerange" Multiplicity="0..1" />
+          <End Role="jobad" Type="renoratordbModel.Store.jobad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pricerange">
+              <PropertyRef Name="priceRangeID" />
+            </Principal>
+            <Dependent Role="jobad">
+              <PropertyRef Name="priceRangeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="jobad_ibfk_4">
+          <End Role="gallery" Type="renoratordbModel.Store.gallery" Multiplicity="0..1" />
+          <End Role="jobad" Type="renoratordbModel.Store.jobad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gallery">
+              <PropertyRef Name="galleryID" />
+            </Principal>
+            <Dependent Role="jobad">
+              <PropertyRef Name="galleryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="message_ibfk_1">
+          <End Role="user" Type="renoratordbModel.Store.user" Multiplicity="1" />
+          <End Role="message" Type="renoratordbModel.Store.message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="message">
+              <PropertyRef Name="senderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="message_ibfk_2">
+          <End Role="user" Type="renoratordbModel.Store.user" Multiplicity="1" />
+          <End Role="message" Type="renoratordbModel.Store.message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="message">
+              <PropertyRef Name="receiverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="phone_ibfk_1">
+          <End Role="user" Type="renoratordbModel.Store.user" Multiplicity="1" />
+          <End Role="phone" Type="renoratordbModel.Store.phone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="phone">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="phone_ibfk_2">
+          <End Role="phonetype" Type="renoratordbModel.Store.phonetype" Multiplicity="1" />
+          <End Role="phone" Type="renoratordbModel.Store.phone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="phonetype">
+              <PropertyRef Name="phoneTypeID" />
+            </Principal>
+            <Dependent Role="phone">
+              <PropertyRef Name="phoneTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="photo_ibfk_1">
+          <End Role="gallery" Type="renoratordbModel.Store.gallery" Multiplicity="0..1" />
+          <End Role="photo" Type="renoratordbModel.Store.photo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gallery">
+              <PropertyRef Name="galleryID" />
+            </Principal>
+            <Dependent Role="photo">
+              <PropertyRef Name="galleryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="review_ibfk_1">
+          <End Role="user" Type="renoratordbModel.Store.user" Multiplicity="1" />
+          <End Role="review" Type="renoratordbModel.Store.review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="review">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="review_ibfk_2">
+          <End Role="job" Type="renoratordbModel.Store.job" Multiplicity="0..1" />
+          <End Role="review" Type="renoratordbModel.Store.review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="job">
+              <PropertyRef Name="jobID" />
+            </Principal>
+            <Dependent Role="review">
+              <PropertyRef Name="jobID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="review_ibfk_3">
+          <End Role="user" Type="renoratordbModel.Store.user" Multiplicity="1" />
+          <End Role="review" Type="renoratordbModel.Store.review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="review">
+              <PropertyRef Name="contractorUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="review_ibfk_4">
+          <End Role="gallery" Type="renoratordbModel.Store.gallery" Multiplicity="0..1" />
+          <End Role="review" Type="renoratordbModel.Store.review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gallery">
+              <PropertyRef Name="galleryID" />
+            </Principal>
+            <Dependent Role="review">
+              <PropertyRef Name="galleryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="reviewcomment_ibfk_1">
+          <End Role="user" Type="renoratordbModel.Store.user" Multiplicity="1" />
+          <End Role="reviewcomment" Type="renoratordbModel.Store.reviewcomment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="reviewcomment">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="reviewcomment_ibfk_2">
+          <End Role="review" Type="renoratordbModel.Store.review" Multiplicity="1" />
+          <End Role="reviewcomment" Type="renoratordbModel.Store.reviewcomment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="review">
+              <PropertyRef Name="reviewID" />
+            </Principal>
+            <Dependent Role="reviewcomment">
+              <PropertyRef Name="reviewID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="reviewhelpful_ibfk_1">
+          <End Role="review" Type="renoratordbModel.Store.review" Multiplicity="1" />
+          <End Role="reviewhelpful" Type="renoratordbModel.Store.reviewhelpful" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="review">
+              <PropertyRef Name="reviewID" />
+            </Principal>
+            <Dependent Role="reviewhelpful">
+              <PropertyRef Name="reviewID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="reviewhelpful_ibfk_2">
+          <End Role="user" Type="renoratordbModel.Store.user" Multiplicity="1" />
+          <End Role="reviewhelpful" Type="renoratordbModel.Store.reviewhelpful" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="reviewhelpful">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="reviewrating_ibfk_1">
+          <End Role="review" Type="renoratordbModel.Store.review" Multiplicity="1" />
+          <End Role="reviewrating" Type="renoratordbModel.Store.reviewrating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="review">
+              <PropertyRef Name="reviewID" />
+            </Principal>
+            <Dependent Role="reviewrating">
+              <PropertyRef Name="reviewID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="reviewrating_ibfk_2">
+          <End Role="ratingquestion" Type="renoratordbModel.Store.ratingquestion" Multiplicity="1" />
+          <End Role="reviewrating" Type="renoratordbModel.Store.reviewrating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ratingquestion">
+              <PropertyRef Name="ratingQuestionID" />
+            </Principal>
+            <Dependent Role="reviewrating">
+              <PropertyRef Name="ratingQuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user_ibfk_1">
+          <End Role="usertype" Type="renoratordbModel.Store.usertype" Multiplicity="1" />
+          <End Role="user" Type="renoratordbModel.Store.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usertype">
+              <PropertyRef Name="userTypeID" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="userTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user_ibfk_2">
+          <End Role="gallery" Type="renoratordbModel.Store.gallery" Multiplicity="0..1" />
+          <End Role="user" Type="renoratordbModel.Store.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gallery">
+              <PropertyRef Name="galleryID" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="profileGalleryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user_ibfk_3">
+          <End Role="photo" Type="renoratordbModel.Store.photo" Multiplicity="0..1" />
+          <End Role="user" Type="renoratordbModel.Store.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="photo">
+              <PropertyRef Name="photoID" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="profilePhotoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user_ibfk_4">
+          <End Role="address" Type="renoratordbModel.Store.address" Multiplicity="0..1" />
+          <End Role="user" Type="renoratordbModel.Store.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="address">
+              <PropertyRef Name="addressID" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="addressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user_ibfk_5">
+          <End Role="gallery" Type="renoratordbModel.Store.gallery" Multiplicity="0..1" />
+          <End Role="user" Type="renoratordbModel.Store.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gallery">
+              <PropertyRef Name="galleryID" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="portfolioGalleryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="renoratordbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="renoRatorDBEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="Addresses" EntityType="renoratordbModel.Address" />
+          <EntitySet Name="Cities" EntityType="renoratordbModel.City" />
+          <EntitySet Name="Galleries" EntityType="renoratordbModel.Gallery" />
+          <EntitySet Name="JobAds" EntityType="renoratordbModel.JobAd" />
+          <EntitySet Name="Phones" EntityType="renoratordbModel.Phone" />
+          <EntitySet Name="PhoneTypes" EntityType="renoratordbModel.PhoneType" />
+          <EntitySet Name="Photos" EntityType="renoratordbModel.Photo" />
+          <EntitySet Name="PriceRanges" EntityType="renoratordbModel.PriceRange" />
+          <EntitySet Name="Provinces" EntityType="renoratordbModel.Province" />
+          <EntitySet Name="RatingQuestions" EntityType="renoratordbModel.RatingQuestion" />
+          <EntitySet Name="Reviews" EntityType="renoratordbModel.Review" />
+          <EntitySet Name="ReviewComments" EntityType="renoratordbModel.ReviewComment" />
+          <EntitySet Name="ReviewHelpfuls" EntityType="renoratordbModel.ReviewHelpful" />
+          <EntitySet Name="ReviewRatings" EntityType="renoratordbModel.ReviewRating" />
+          <EntitySet Name="Users" EntityType="renoratordbModel.User" />
+          <EntitySet Name="UserTypes" EntityType="renoratordbModel.UserType" />
+          <AssociationSet Name="city_id" Association="renoratordbModel.city_id">
+            <End Role="city" EntitySet="Cities" />
+            <End Role="address" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="jobad_ibfk_2" Association="renoratordbModel.jobad_ibfk_2">
+            <End Role="address" EntitySet="Addresses" />
+            <End Role="jobad" EntitySet="JobAds" />
+          </AssociationSet>
+          <AssociationSet Name="user_ibfk_4" Association="renoratordbModel.user_ibfk_4">
+            <End Role="address" EntitySet="Addresses" />
+            <End Role="user" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="city_ibfk_1" Association="renoratordbModel.city_ibfk_1">
+            <End Role="province" EntitySet="Provinces" />
+            <End Role="city" EntitySet="Cities" />
+          </AssociationSet>
+          <AssociationSet Name="jobad_ibfk_4" Association="renoratordbModel.jobad_ibfk_4">
+            <End Role="gallery" EntitySet="Galleries" />
+            <End Role="jobad" EntitySet="JobAds" />
+          </AssociationSet>
+          <AssociationSet Name="photo_ibfk_1" Association="renoratordbModel.photo_ibfk_1">
+            <End Role="gallery" EntitySet="Galleries" />
+            <End Role="photo" EntitySet="Photos" />
+          </AssociationSet>
+          <AssociationSet Name="review_ibfk_4" Association="renoratordbModel.review_ibfk_4">
+            <End Role="gallery" EntitySet="Galleries" />
+            <End Role="review" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="user_ibfk_2" Association="renoratordbModel.user_ibfk_2">
+            <End Role="gallery" EntitySet="Galleries" />
+            <End Role="user" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="user_ibfk_5" Association="renoratordbModel.user_ibfk_5">
+            <End Role="gallery" EntitySet="Galleries" />
+            <End Role="user" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="jobad_ibfk_1" Association="renoratordbModel.jobad_ibfk_1">
+            <End Role="user" EntitySet="Users" />
+            <End Role="jobad" EntitySet="JobAds" />
+          </AssociationSet>
+          <AssociationSet Name="jobad_ibfk_3" Association="renoratordbModel.jobad_ibfk_3">
+            <End Role="pricerange" EntitySet="PriceRanges" />
+            <End Role="jobad" EntitySet="JobAds" />
+          </AssociationSet>
+          <AssociationSet Name="phone_ibfk_1" Association="renoratordbModel.phone_ibfk_1">
+            <End Role="user" EntitySet="Users" />
+            <End Role="phone" EntitySet="Phones" />
+          </AssociationSet>
+          <AssociationSet Name="phone_ibfk_2" Association="renoratordbModel.phone_ibfk_2">
+            <End Role="phonetype" EntitySet="PhoneTypes" />
+            <End Role="phone" EntitySet="Phones" />
+          </AssociationSet>
+          <AssociationSet Name="user_ibfk_3" Association="renoratordbModel.user_ibfk_3">
+            <End Role="photo" EntitySet="Photos" />
+            <End Role="user" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="reviewrating_ibfk_2" Association="renoratordbModel.reviewrating_ibfk_2">
+            <End Role="ratingquestion" EntitySet="RatingQuestions" />
+            <End Role="reviewrating" EntitySet="ReviewRatings" />
+          </AssociationSet>
+          <AssociationSet Name="review_ibfk_1" Association="renoratordbModel.review_ibfk_1">
+            <End Role="user" EntitySet="Users" />
+            <End Role="review" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="review_ibfk_3" Association="renoratordbModel.review_ibfk_3">
+            <End Role="user" EntitySet="Users" />
+            <End Role="review" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="reviewcomment_ibfk_2" Association="renoratordbModel.reviewcomment_ibfk_2">
+            <End Role="review" EntitySet="Reviews" />
+            <End Role="reviewcomment" EntitySet="ReviewComments" />
+          </AssociationSet>
+          <AssociationSet Name="reviewhelpful_ibfk_1" Association="renoratordbModel.reviewhelpful_ibfk_1">
+            <End Role="review" EntitySet="Reviews" />
+            <End Role="reviewhelpful" EntitySet="ReviewHelpfuls" />
+          </AssociationSet>
+          <AssociationSet Name="reviewrating_ibfk_1" Association="renoratordbModel.reviewrating_ibfk_1">
+            <End Role="review" EntitySet="Reviews" />
+            <End Role="reviewrating" EntitySet="ReviewRatings" />
+          </AssociationSet>
+          <AssociationSet Name="reviewcomment_ibfk_1" Association="renoratordbModel.reviewcomment_ibfk_1">
+            <End Role="user" EntitySet="Users" />
+            <End Role="reviewcomment" EntitySet="ReviewComments" />
+          </AssociationSet>
+          <AssociationSet Name="reviewhelpful_ibfk_2" Association="renoratordbModel.reviewhelpful_ibfk_2">
+            <End Role="user" EntitySet="Users" />
+            <End Role="reviewhelpful" EntitySet="ReviewHelpfuls" />
+          </AssociationSet>
+          <AssociationSet Name="user_ibfk_1" Association="renoratordbModel.user_ibfk_1">
+            <End Role="usertype" EntitySet="UserTypes" />
+            <End Role="user" EntitySet="Users" />
+          </AssociationSet>
+          <EntitySet Name="messages" EntityType="renoratordbModel.message" />
+          <AssociationSet Name="message_ibfk_1" Association="renoratordbModel.message_ibfk_1">
+            <End Role="User" EntitySet="Users" />
+            <End Role="message" EntitySet="messages" />
+          </AssociationSet>
+          <AssociationSet Name="message_ibfk_2" Association="renoratordbModel.message_ibfk_2">
+            <End Role="User" EntitySet="Users" />
+            <End Role="message" EntitySet="messages" />
+          </AssociationSet>
+          <EntitySet Name="Jobs" EntityType="renoratordbModel.Job" />
+          <AssociationSet Name="job_ibfk_1" Association="renoratordbModel.job_ibfk_1">
+            <End Role="Address" EntitySet="Addresses" />
+            <End Role="job" EntitySet="Jobs" />
+          </AssociationSet>
+          <AssociationSet Name="job_ibfk_3" Association="renoratordbModel.job_ibfk_3">
+            <End Role="Gallery" EntitySet="Galleries" />
+            <End Role="job" EntitySet="Jobs" />
+          </AssociationSet>
+          <AssociationSet Name="job_ibfk_2" Association="renoratordbModel.job_ibfk_2">
+            <End Role="PriceRange" EntitySet="PriceRanges" />
+            <End Role="job" EntitySet="Jobs" />
+          </AssociationSet>
+          <AssociationSet Name="job_ibfk_4" Association="renoratordbModel.job_ibfk_4">
+            <End Role="User" EntitySet="Users" />
+            <End Role="job" EntitySet="Jobs" />
+          </AssociationSet>
+          <AssociationSet Name="review_ibfk_2" Association="renoratordbModel.review_ibfk_2">
+            <End Role="job" EntitySet="Jobs" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="job_ibfk_5" Association="renoratordbModel.job_ibfk_5">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Job" EntitySet="Jobs" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="addressID" />
+          </Key>
+          <Property Type="Int32" Name="addressID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="addressLine1" Nullable="false" />
+          <Property Type="String" Name="addressLine2" />
+          <Property Type="String" Name="postalCode" Nullable="false" />
+          <Property Type="Int32" Name="cityID" Nullable="false" />
+          <Property Type="String" Name="country" Nullable="false" />
+          <NavigationProperty Name="city" Relationship="renoratordbModel.city_id" FromRole="address" ToRole="city" />
+          <NavigationProperty Name="jobads" Relationship="renoratordbModel.jobad_ibfk_2" FromRole="address" ToRole="jobad" />
+          <NavigationProperty Name="users" Relationship="renoratordbModel.user_ibfk_4" FromRole="address" ToRole="user" />
+          <NavigationProperty Name="jobs" Relationship="renoratordbModel.job_ibfk_1" FromRole="Address" ToRole="job" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="cityID" />
+          </Key>
+          <Property Type="Int32" Name="cityID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="provinceID" Nullable="false" />
+          <Property Type="String" Name="city1" Nullable="false" />
+          <NavigationProperty Name="addresses" Relationship="renoratordbModel.city_id" FromRole="city" ToRole="address" />
+          <NavigationProperty Name="province" Relationship="renoratordbModel.city_ibfk_1" FromRole="city" ToRole="province" />
+        </EntityType>
+        <EntityType Name="Gallery">
+          <Key>
+            <PropertyRef Name="galleryID" />
+          </Key>
+          <Property Type="Int32" Name="galleryID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="name" Nullable="true" />
+          <Property Type="String" Name="description" />
+          <NavigationProperty Name="jobads" Relationship="renoratordbModel.jobad_ibfk_4" FromRole="gallery" ToRole="jobad" />
+          <NavigationProperty Name="photos" Relationship="renoratordbModel.photo_ibfk_1" FromRole="gallery" ToRole="photo" />
+          <NavigationProperty Name="reviews" Relationship="renoratordbModel.review_ibfk_4" FromRole="gallery" ToRole="review" />
+          <NavigationProperty Name="users" Relationship="renoratordbModel.user_ibfk_2" FromRole="gallery" ToRole="user" />
+          <NavigationProperty Name="users1" Relationship="renoratordbModel.user_ibfk_5" FromRole="gallery" ToRole="user" />
+          <NavigationProperty Name="jobs" Relationship="renoratordbModel.job_ibfk_3" FromRole="Gallery" ToRole="job" />
+        </EntityType>
+        <EntityType Name="JobAd">
+          <Key>
+            <PropertyRef Name="jobAdID" />
+          </Key>
+          <Property Type="Int32" Name="jobAdID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="userID" Nullable="false" />
+          <Property Type="Int32" Name="addressID" Nullable="false" />
+          <Property Type="Int32" Name="priceRangeID" />
+          <Property Type="String" Name="tags" />
+          <Property Type="String" Name="description" Nullable="false" />
+          <Property Type="Int32" Name="galleryID" />
+          <Property Type="DateTime" Name="targetEndDate" Nullable="false" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+          <Property Type="String" Name="title" />
+          <NavigationProperty Name="address" Relationship="renoratordbModel.jobad_ibfk_2" FromRole="jobad" ToRole="address" />
+          <NavigationProperty Name="gallery" Relationship="renoratordbModel.jobad_ibfk_4" FromRole="jobad" ToRole="gallery" />
+          <NavigationProperty Name="user" Relationship="renoratordbModel.jobad_ibfk_1" FromRole="jobad" ToRole="user" />
+          <NavigationProperty Name="pricerange" Relationship="renoratordbModel.jobad_ibfk_3" FromRole="jobad" ToRole="pricerange" />
+        </EntityType>
+        <EntityType Name="Phone">
+          <Key>
+            <PropertyRef Name="phoneID" />
+          </Key>
+          <Property Type="Int32" Name="phoneID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="userID" Nullable="false" />
+          <Property Type="Int32" Name="phoneTypeID" Nullable="false" />
+          <Property Type="String" Name="phoneNo" Nullable="false" />
+          <Property Type="String" Name="extension" />
+          <NavigationProperty Name="user" Relationship="renoratordbModel.phone_ibfk_1" FromRole="phone" ToRole="user" />
+          <NavigationProperty Name="phonetype" Relationship="renoratordbModel.phone_ibfk_2" FromRole="phone" ToRole="phonetype" />
+        </EntityType>
+        <EntityType Name="PhoneType">
+          <Key>
+            <PropertyRef Name="phoneTypeID" />
+          </Key>
+          <Property Type="Int32" Name="phoneTypeID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="description" Nullable="false" />
+          <NavigationProperty Name="phones" Relationship="renoratordbModel.phone_ibfk_2" FromRole="phonetype" ToRole="phone" />
+        </EntityType>
+        <EntityType Name="Photo">
+          <Key>
+            <PropertyRef Name="photoID" />
+          </Key>
+          <Property Type="Int32" Name="photoID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="path" Nullable="false" />
+          <Property Type="Int32" Name="galleryID" />
+          <Property Type="String" Name="description" />
+          <NavigationProperty Name="gallery" Relationship="renoratordbModel.photo_ibfk_1" FromRole="photo" ToRole="gallery" />
+          <NavigationProperty Name="users" Relationship="renoratordbModel.user_ibfk_3" FromRole="photo" ToRole="user" />
+          <Property Type="String" Name="thumbPath" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PriceRange">
+          <Key>
+            <PropertyRef Name="priceRangeID" />
+          </Key>
+          <Property Type="Int32" Name="priceRangeID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="min" Nullable="false" />
+          <Property Type="Int32" Name="max" Nullable="false" />
+          <NavigationProperty Name="jobads" Relationship="renoratordbModel.jobad_ibfk_3" FromRole="pricerange" ToRole="jobad" />
+          <NavigationProperty Name="jobs" Relationship="renoratordbModel.job_ibfk_2" FromRole="PriceRange" ToRole="job" />
+        </EntityType>
+        <EntityType Name="Province">
+          <Key>
+            <PropertyRef Name="provinceID" />
+          </Key>
+          <Property Type="Int32" Name="provinceID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="province1" Nullable="false" />
+          <NavigationProperty Name="cities" Relationship="renoratordbModel.city_ibfk_1" FromRole="province" ToRole="city" />
+        </EntityType>
+        <EntityType Name="RatingQuestion">
+          <Key>
+            <PropertyRef Name="ratingQuestionID" />
+          </Key>
+          <Property Type="Int32" Name="ratingQuestionID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="question" Nullable="false" />
+          <NavigationProperty Name="reviewratings" Relationship="renoratordbModel.reviewrating_ibfk_2" FromRole="ratingquestion" ToRole="reviewrating" />
+        </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="reviewID" />
+          </Key>
+          <Property Type="Int32" Name="reviewID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="userID" Nullable="false" />
+          <Property Type="Int32" Name="jobID" />
+          <Property Type="Int32" Name="contractorUserID" Nullable="false" />
+          <Property Type="String" Name="review1" Nullable="false" />
+          <Property Type="Int32" Name="galleryID" />
+          <NavigationProperty Name="gallery" Relationship="renoratordbModel.review_ibfk_4" FromRole="review" ToRole="gallery" />
+          <NavigationProperty Name="user" Relationship="renoratordbModel.review_ibfk_1" FromRole="review" ToRole="user" />
+          <NavigationProperty Name="user1" Relationship="renoratordbModel.review_ibfk_3" FromRole="review" ToRole="user" />
+          <NavigationProperty Name="reviewcomments" Relationship="renoratordbModel.reviewcomment_ibfk_2" FromRole="review" ToRole="reviewcomment" />
+          <NavigationProperty Name="reviewhelpfuls" Relationship="renoratordbModel.reviewhelpful_ibfk_1" FromRole="review" ToRole="reviewhelpful" />
+          <NavigationProperty Name="reviewratings" Relationship="renoratordbModel.reviewrating_ibfk_1" FromRole="review" ToRole="reviewrating" />
+          <NavigationProperty Name="job" Relationship="renoratordbModel.review_ibfk_2" FromRole="Review" ToRole="job" />
+        </EntityType>
+        <EntityType Name="ReviewComment">
+          <Key>
+            <PropertyRef Name="reviewCommentID" />
+          </Key>
+          <Property Type="Int32" Name="reviewCommentID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="userID" Nullable="false" />
+          <Property Type="Int32" Name="reviewID" Nullable="false" />
+          <Property Type="String" Name="comment" Nullable="false" />
+          <NavigationProperty Name="review" Relationship="renoratordbModel.reviewcomment_ibfk_2" FromRole="reviewcomment" ToRole="review" />
+          <NavigationProperty Name="user" Relationship="renoratordbModel.reviewcomment_ibfk_1" FromRole="reviewcomment" ToRole="user" />
+        </EntityType>
+        <EntityType Name="ReviewHelpful">
+          <Key>
+            <PropertyRef Name="reviewHelpfulID" />
+          </Key>
+          <Property Type="Int32" Name="reviewHelpfulID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="reviewID" Nullable="false" />
+          <Property Type="Int32" Name="userID" Nullable="false" />
+          <Property Type="Boolean" Name="isGood" Nullable="false" />
+          <NavigationProperty Name="review" Relationship="renoratordbModel.reviewhelpful_ibfk_1" FromRole="reviewhelpful" ToRole="review" />
+          <NavigationProperty Name="user" Relationship="renoratordbModel.reviewhelpful_ibfk_2" FromRole="reviewhelpful" ToRole="user" />
+        </EntityType>
+        <EntityType Name="ReviewRating">
+          <Key>
+            <PropertyRef Name="reviewRatingID" />
+          </Key>
+          <Property Type="Int32" Name="reviewRatingID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="reviewID" Nullable="false" />
+          <Property Type="Int32" Name="ratingQuestionID" Nullable="false" />
+          <Property Type="Double" Name="rating" Nullable="false" />
+          <NavigationProperty Name="ratingquestion" Relationship="renoratordbModel.reviewrating_ibfk_2" FromRole="reviewrating" ToRole="ratingquestion" />
+          <NavigationProperty Name="review" Relationship="renoratordbModel.reviewrating_ibfk_1" FromRole="reviewrating" ToRole="review" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="userID" />
+          </Key>
+          <Property Type="Int32" Name="userID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="userTypeID" Nullable="false" />
+          <Property Type="String" Name="fname" Nullable="false" />
+          <Property Type="String" Name="lname" Nullable="false" />
+          <Property Type="String" Name="email" Nullable="false" />
+          <Property Type="String" Name="bio" />
+          <Property Type="String" Name="password" Nullable="false" />
+          <Property Type="String" Name="salt" Nullable="false" />
+          <Property Type="Int32" Name="profileGalleryID" />
+          <Property Type="Int32" Name="profilePhotoID" />
+          <Property Type="Int32" Name="addressID" />
+          <Property Type="Int32" Name="portfolioGalleryID" />
+          <NavigationProperty Name="address" Relationship="renoratordbModel.user_ibfk_4" FromRole="user" ToRole="address" />
+          <NavigationProperty Name="gallery" Relationship="renoratordbModel.user_ibfk_2" FromRole="user" ToRole="gallery" />
+          <NavigationProperty Name="portfolioGallery" Relationship="renoratordbModel.user_ibfk_5" FromRole="user" ToRole="gallery" />
+          <NavigationProperty Name="jobads" Relationship="renoratordbModel.jobad_ibfk_1" FromRole="user" ToRole="jobad" />
+          <NavigationProperty Name="phones" Relationship="renoratordbModel.phone_ibfk_1" FromRole="user" ToRole="phone" />
+          <NavigationProperty Name="photo" Relationship="renoratordbModel.user_ibfk_3" FromRole="user" ToRole="photo" />
+          <NavigationProperty Name="reviews" Relationship="renoratordbModel.review_ibfk_1" FromRole="user" ToRole="review" />
+          <NavigationProperty Name="reviews1" Relationship="renoratordbModel.review_ibfk_3" FromRole="user" ToRole="review" />
+          <NavigationProperty Name="reviewcomments" Relationship="renoratordbModel.reviewcomment_ibfk_1" FromRole="user" ToRole="reviewcomment" />
+          <NavigationProperty Name="reviewhelpfuls" Relationship="renoratordbModel.reviewhelpful_ibfk_2" FromRole="user" ToRole="reviewhelpful" />
+          <NavigationProperty Name="usertype" Relationship="renoratordbModel.user_ibfk_1" FromRole="user" ToRole="usertype" />
+          <Property Type="Boolean" Name="verified" Nullable="false" />
+          <NavigationProperty Name="messages" Relationship="renoratordbModel.message_ibfk_1" FromRole="User" ToRole="message" />
+          <NavigationProperty Name="messages1" Relationship="renoratordbModel.message_ibfk_2" FromRole="User" ToRole="message" />
+          <Property Type="String" Name="company" />
+          <NavigationProperty Name="jobs" Relationship="renoratordbModel.job_ibfk_4" FromRole="User" ToRole="job" />
+          <NavigationProperty Name="jobs1" Relationship="renoratordbModel.job_ibfk_5" FromRole="User" ToRole="Job" />
+        </EntityType>
+        <EntityType Name="UserType">
+          <Key>
+            <PropertyRef Name="userTypeID" />
+          </Key>
+          <Property Type="Int32" Name="userTypeID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="description" Nullable="false" />
+          <NavigationProperty Name="users" Relationship="renoratordbModel.user_ibfk_1" FromRole="usertype" ToRole="user" />
+        </EntityType>
+        <Association Name="city_id">
+          <End Type="renoratordbModel.City" Role="city" Multiplicity="1" />
+          <End Type="renoratordbModel.Address" Role="address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="city">
+              <PropertyRef Name="cityID" />
+            </Principal>
+            <Dependent Role="address">
+              <PropertyRef Name="cityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="jobad_ibfk_2">
+          <End Type="renoratordbModel.Address" Role="address" Multiplicity="1" />
+          <End Type="renoratordbModel.JobAd" Role="jobad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="address">
+              <PropertyRef Name="addressID" />
+            </Principal>
+            <Dependent Role="jobad">
+              <PropertyRef Name="addressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user_ibfk_4">
+          <End Type="renoratordbModel.Address" Role="address" Multiplicity="0..1" />
+          <End Type="renoratordbModel.User" Role="user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="address">
+              <PropertyRef Name="addressID" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="addressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="city_ibfk_1">
+          <End Type="renoratordbModel.Province" Role="province" Multiplicity="1" />
+          <End Type="renoratordbModel.City" Role="city" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="province">
+              <PropertyRef Name="provinceID" />
+            </Principal>
+            <Dependent Role="city">
+              <PropertyRef Name="provinceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="jobad_ibfk_4">
+          <End Type="renoratordbModel.Gallery" Role="gallery" Multiplicity="0..1" />
+          <End Type="renoratordbModel.JobAd" Role="jobad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gallery">
+              <PropertyRef Name="galleryID" />
+            </Principal>
+            <Dependent Role="jobad">
+              <PropertyRef Name="galleryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="photo_ibfk_1">
+          <End Type="renoratordbModel.Gallery" Role="gallery" Multiplicity="0..1" />
+          <End Type="renoratordbModel.Photo" Role="photo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gallery">
+              <PropertyRef Name="galleryID" />
+            </Principal>
+            <Dependent Role="photo">
+              <PropertyRef Name="galleryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="review_ibfk_4">
+          <End Type="renoratordbModel.Gallery" Role="gallery" Multiplicity="0..1" />
+          <End Type="renoratordbModel.Review" Role="review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gallery">
+              <PropertyRef Name="galleryID" />
+            </Principal>
+            <Dependent Role="review">
+              <PropertyRef Name="galleryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user_ibfk_2">
+          <End Type="renoratordbModel.Gallery" Role="gallery" Multiplicity="0..1" />
+          <End Type="renoratordbModel.User" Role="user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gallery">
+              <PropertyRef Name="galleryID" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="profileGalleryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user_ibfk_5">
+          <End Type="renoratordbModel.Gallery" Role="gallery" Multiplicity="0..1" />
+          <End Type="renoratordbModel.User" Role="user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gallery">
+              <PropertyRef Name="galleryID" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="portfolioGalleryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="jobad_ibfk_1">
+          <End Type="renoratordbModel.User" Role="user" Multiplicity="1" />
+          <End Type="renoratordbModel.JobAd" Role="jobad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="jobad">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="jobad_ibfk_3">
+          <End Type="renoratordbModel.PriceRange" Role="pricerange" Multiplicity="0..1" />
+          <End Type="renoratordbModel.JobAd" Role="jobad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pricerange">
+              <PropertyRef Name="priceRangeID" />
+            </Principal>
+            <Dependent Role="jobad">
+              <PropertyRef Name="priceRangeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="phone_ibfk_1">
+          <End Type="renoratordbModel.User" Role="user" Multiplicity="1" />
+          <End Type="renoratordbModel.Phone" Role="phone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="phone">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="phone_ibfk_2">
+          <End Type="renoratordbModel.PhoneType" Role="phonetype" Multiplicity="1" />
+          <End Type="renoratordbModel.Phone" Role="phone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="phonetype">
+              <PropertyRef Name="phoneTypeID" />
+            </Principal>
+            <Dependent Role="phone">
+              <PropertyRef Name="phoneTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user_ibfk_3">
+          <End Type="renoratordbModel.Photo" Role="photo" Multiplicity="0..1" />
+          <End Type="renoratordbModel.User" Role="user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="photo">
+              <PropertyRef Name="photoID" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="profilePhotoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="reviewrating_ibfk_2">
+          <End Type="renoratordbModel.RatingQuestion" Role="ratingquestion" Multiplicity="1" />
+          <End Type="renoratordbModel.ReviewRating" Role="reviewrating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ratingquestion">
+              <PropertyRef Name="ratingQuestionID" />
+            </Principal>
+            <Dependent Role="reviewrating">
+              <PropertyRef Name="ratingQuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="review_ibfk_1">
+          <End Type="renoratordbModel.User" Role="user" Multiplicity="1" />
+          <End Type="renoratordbModel.Review" Role="review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="review">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="review_ibfk_3">
+          <End Type="renoratordbModel.User" Role="user" Multiplicity="1" />
+          <End Type="renoratordbModel.Review" Role="review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="review">
+              <PropertyRef Name="contractorUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="reviewcomment_ibfk_2">
+          <End Type="renoratordbModel.Review" Role="review" Multiplicity="1" />
+          <End Type="renoratordbModel.ReviewComment" Role="reviewcomment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="review">
+              <PropertyRef Name="reviewID" />
+            </Principal>
+            <Dependent Role="reviewcomment">
+              <PropertyRef Name="reviewID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="reviewhelpful_ibfk_1">
+          <End Type="renoratordbModel.Review" Role="review" Multiplicity="1" />
+          <End Type="renoratordbModel.ReviewHelpful" Role="reviewhelpful" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="review">
+              <PropertyRef Name="reviewID" />
+            </Principal>
+            <Dependent Role="reviewhelpful">
+              <PropertyRef Name="reviewID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="reviewrating_ibfk_1">
+          <End Type="renoratordbModel.Review" Role="review" Multiplicity="1" />
+          <End Type="renoratordbModel.ReviewRating" Role="reviewrating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="review">
+              <PropertyRef Name="reviewID" />
+            </Principal>
+            <Dependent Role="reviewrating">
+              <PropertyRef Name="reviewID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="reviewcomment_ibfk_1">
+          <End Type="renoratordbModel.User" Role="user" Multiplicity="1" />
+          <End Type="renoratordbModel.ReviewComment" Role="reviewcomment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="reviewcomment">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="reviewhelpful_ibfk_2">
+          <End Type="renoratordbModel.User" Role="user" Multiplicity="1" />
+          <End Type="renoratordbModel.ReviewHelpful" Role="reviewhelpful" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="reviewhelpful">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user_ibfk_1">
+          <End Type="renoratordbModel.UserType" Role="usertype" Multiplicity="1" />
+          <End Type="renoratordbModel.User" Role="user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usertype">
+              <PropertyRef Name="userTypeID" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="userTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="message">
+          <Key>
+            <PropertyRef Name="messageID" />
+          </Key>
+          <Property Type="Int32" Name="messageID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="senderID" Nullable="false" />
+          <Property Type="Int32" Name="receiverID" Nullable="false" />
+          <Property Type="String" Name="msgSubject" />
+          <Property Type="String" Name="msgBody" Nullable="false" />
+          <NavigationProperty Name="user" Relationship="renoratordbModel.message_ibfk_1" FromRole="message" ToRole="User" />
+          <NavigationProperty Name="user1" Relationship="renoratordbModel.message_ibfk_2" FromRole="message" ToRole="User" />
+          <Property Type="DateTime" Name="msgDate" Nullable="false" />
+          <Property Type="Boolean" Name="is_read" Nullable="false" />
+          <Property Type="Boolean" Name="deletedBySender" />
+          <Property Type="Boolean" Name="deletedByReceiver" />
+        </EntityType>
+        <Association Name="message_ibfk_1">
+          <End Type="renoratordbModel.User" Role="User" Multiplicity="1" />
+          <End Type="renoratordbModel.message" Role="message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="message">
+              <PropertyRef Name="senderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="message_ibfk_2">
+          <End Type="renoratordbModel.User" Role="User" Multiplicity="1" />
+          <End Type="renoratordbModel.message" Role="message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="message">
+              <PropertyRef Name="receiverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Job">
+          <Key>
+            <PropertyRef Name="jobID" />
+          </Key>
+          <Property Type="Int32" Name="jobID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="galleryID" />
+          <Property Type="String" Name="description" Nullable="false" />
+          <Property Type="DateTime" Name="startDate" />
+          <Property Type="DateTime" Name="endDate" Nullable="false" />
+          <Property Type="Int32" Name="priceRangeID" Nullable="false" />
+          <Property Type="Int32" Name="userID" />
+          <Property Type="Int32" Name="contractorUserID" Nullable="false" />
+          <Property Type="Int32" Name="addressID" />
+          <Property Type="String" Name="tags" />
+          <Property Type="String" Name="title" Nullable="false" />
+          <NavigationProperty Name="address" Relationship="renoratordbModel.job_ibfk_1" FromRole="job" ToRole="Address" />
+          <NavigationProperty Name="gallery" Relationship="renoratordbModel.job_ibfk_3" FromRole="job" ToRole="Gallery" />
+          <NavigationProperty Name="pricerange" Relationship="renoratordbModel.job_ibfk_2" FromRole="job" ToRole="PriceRange" />
+          <NavigationProperty Name="user" Relationship="renoratordbModel.job_ibfk_4" FromRole="job" ToRole="User" />
+          <NavigationProperty Name="reviews" Relationship="renoratordbModel.review_ibfk_2" FromRole="job" ToRole="Review" />
+          <NavigationProperty Name="contractorUser" Relationship="renoratordbModel.job_ibfk_5" FromRole="Job" ToRole="User" />
+        </EntityType>
+        <Association Name="job_ibfk_1">
+          <End Type="renoratordbModel.Address" Role="Address" Multiplicity="0..1" />
+          <End Type="renoratordbModel.Job" Role="job" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="addressID" />
+            </Principal>
+            <Dependent Role="job">
+              <PropertyRef Name="addressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="job_ibfk_3">
+          <End Type="renoratordbModel.Gallery" Role="Gallery" Multiplicity="0..1" />
+          <End Type="renoratordbModel.Job" Role="job" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gallery">
+              <PropertyRef Name="galleryID" />
+            </Principal>
+            <Dependent Role="job">
+              <PropertyRef Name="galleryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="job_ibfk_2">
+          <End Type="renoratordbModel.PriceRange" Role="PriceRange" Multiplicity="1" />
+          <End Type="renoratordbModel.Job" Role="job" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PriceRange">
+              <PropertyRef Name="priceRangeID" />
+            </Principal>
+            <Dependent Role="job">
+              <PropertyRef Name="priceRangeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="job_ibfk_4">
+          <End Type="renoratordbModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="renoratordbModel.Job" Role="job" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="job">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="review_ibfk_2">
+          <End Type="renoratordbModel.Job" Role="job" Multiplicity="0..1" />
+          <End Type="renoratordbModel.Review" Role="Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="job">
+              <PropertyRef Name="jobID" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="jobID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="job_ibfk_5">
+          <End Type="renoratordbModel.User" Role="User" Multiplicity="1" />
+          <End Type="renoratordbModel.Job" Role="Job" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="Job">
+              <PropertyRef Name="contractorUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="renoratordbModelStoreContainer" CdmEntityContainer="renoRatorDBEntities" >
+          <EntitySetMapping Name="Addresses">
+            <EntityTypeMapping TypeName="renoratordbModel.Address">
+              <MappingFragment StoreEntitySet="address">
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="cityID" ColumnName="cityID" />
+                <ScalarProperty Name="postalCode" ColumnName="postalCode" />
+                <ScalarProperty Name="addressLine2" ColumnName="addressLine2" />
+                <ScalarProperty Name="addressLine1" ColumnName="addressLine1" />
+                <ScalarProperty Name="addressID" ColumnName="addressID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="renoratordbModel.City">
+              <MappingFragment StoreEntitySet="city">
+                <ScalarProperty Name="city1" ColumnName="city" />
+                <ScalarProperty Name="provinceID" ColumnName="provinceID" />
+                <ScalarProperty Name="cityID" ColumnName="cityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Galleries">
+            <EntityTypeMapping TypeName="renoratordbModel.Gallery">
+              <MappingFragment StoreEntitySet="gallery">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="galleryID" ColumnName="galleryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobAds">
+            <EntityTypeMapping TypeName="renoratordbModel.JobAd">
+              <MappingFragment StoreEntitySet="jobad">
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="targetEndDate" ColumnName="targetEndDate" />
+                <ScalarProperty Name="galleryID" ColumnName="galleryID" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="tags" ColumnName="tags" />
+                <ScalarProperty Name="priceRangeID" ColumnName="priceRangeID" />
+                <ScalarProperty Name="addressID" ColumnName="addressID" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="jobAdID" ColumnName="jobAdID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Phones">
+            <EntityTypeMapping TypeName="renoratordbModel.Phone">
+              <MappingFragment StoreEntitySet="phone">
+                <ScalarProperty Name="extension" ColumnName="extension" />
+                <ScalarProperty Name="phoneNo" ColumnName="phoneNo" />
+                <ScalarProperty Name="phoneTypeID" ColumnName="phoneTypeID" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="phoneID" ColumnName="phoneID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PhoneTypes">
+            <EntityTypeMapping TypeName="renoratordbModel.PhoneType">
+              <MappingFragment StoreEntitySet="phonetype">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="phoneTypeID" ColumnName="phoneTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Photos">
+            <EntityTypeMapping TypeName="renoratordbModel.Photo">
+              <MappingFragment StoreEntitySet="photo">
+                <ScalarProperty Name="thumbPath" ColumnName="thumbPath" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="galleryID" ColumnName="galleryID" />
+                <ScalarProperty Name="path" ColumnName="path" />
+                <ScalarProperty Name="photoID" ColumnName="photoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PriceRanges">
+            <EntityTypeMapping TypeName="renoratordbModel.PriceRange">
+              <MappingFragment StoreEntitySet="pricerange">
+                <ScalarProperty Name="max" ColumnName="max" />
+                <ScalarProperty Name="min" ColumnName="min" />
+                <ScalarProperty Name="priceRangeID" ColumnName="priceRangeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Provinces">
+            <EntityTypeMapping TypeName="renoratordbModel.Province">
+              <MappingFragment StoreEntitySet="province">
+                <ScalarProperty Name="province1" ColumnName="province" />
+                <ScalarProperty Name="provinceID" ColumnName="provinceID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RatingQuestions">
+            <EntityTypeMapping TypeName="renoratordbModel.RatingQuestion">
+              <MappingFragment StoreEntitySet="ratingquestion">
+                <ScalarProperty Name="question" ColumnName="question" />
+                <ScalarProperty Name="ratingQuestionID" ColumnName="ratingQuestionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reviews">
+            <EntityTypeMapping TypeName="renoratordbModel.Review">
+              <MappingFragment StoreEntitySet="review">
+                <ScalarProperty Name="galleryID" ColumnName="galleryID" />
+                <ScalarProperty Name="review1" ColumnName="review" />
+                <ScalarProperty Name="contractorUserID" ColumnName="contractorUserID" />
+                <ScalarProperty Name="jobID" ColumnName="jobID" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="reviewID" ColumnName="reviewID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReviewComments">
+            <EntityTypeMapping TypeName="renoratordbModel.ReviewComment">
+              <MappingFragment StoreEntitySet="reviewcomment">
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="reviewID" ColumnName="reviewID" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="reviewCommentID" ColumnName="reviewCommentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReviewHelpfuls">
+            <EntityTypeMapping TypeName="renoratordbModel.ReviewHelpful">
+              <MappingFragment StoreEntitySet="reviewhelpful">
+                <ScalarProperty Name="isGood" ColumnName="isGood" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="reviewID" ColumnName="reviewID" />
+                <ScalarProperty Name="reviewHelpfulID" ColumnName="reviewHelpfulID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReviewRatings">
+            <EntityTypeMapping TypeName="renoratordbModel.ReviewRating">
+              <MappingFragment StoreEntitySet="reviewrating">
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="ratingQuestionID" ColumnName="ratingQuestionID" />
+                <ScalarProperty Name="reviewID" ColumnName="reviewID" />
+                <ScalarProperty Name="reviewRatingID" ColumnName="reviewRatingID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="renoratordbModel.User">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="company" ColumnName="company" />
+                <ScalarProperty Name="verified" ColumnName="verified" />
+                <ScalarProperty Name="portfolioGalleryID" ColumnName="portfolioGalleryID" />
+                <ScalarProperty Name="addressID" ColumnName="addressID" />
+                <ScalarProperty Name="profilePhotoID" ColumnName="profilePhotoID" />
+                <ScalarProperty Name="profileGalleryID" ColumnName="profileGalleryID" />
+                <ScalarProperty Name="salt" ColumnName="salt" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="bio" ColumnName="bio" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="lname" ColumnName="lname" />
+                <ScalarProperty Name="fname" ColumnName="fname" />
+                <ScalarProperty Name="userTypeID" ColumnName="userTypeID" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserTypes">
+            <EntityTypeMapping TypeName="renoratordbModel.UserType">
+              <MappingFragment StoreEntitySet="usertype">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="userTypeID" ColumnName="userTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="messages">
+            <EntityTypeMapping TypeName="renoratordbModel.message">
+              <MappingFragment StoreEntitySet="message">
+                <ScalarProperty Name="deletedByReceiver" ColumnName="deletedByReceiver" />
+                <ScalarProperty Name="deletedBySender" ColumnName="deletedBySender" />
+                <ScalarProperty Name="is_read" ColumnName="is_read" />
+                <ScalarProperty Name="msgDate" ColumnName="msgDate" />
+                <ScalarProperty Name="msgBody" ColumnName="msgBody" />
+                <ScalarProperty Name="msgSubject" ColumnName="msgSubject" />
+                <ScalarProperty Name="receiverID" ColumnName="receiverID" />
+                <ScalarProperty Name="senderID" ColumnName="senderID" />
+                <ScalarProperty Name="messageID" ColumnName="messageID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Jobs">
+            <EntityTypeMapping TypeName="renoratordbModel.Job">
+              <MappingFragment StoreEntitySet="job">
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="tags" ColumnName="tags" />
+                <ScalarProperty Name="addressID" ColumnName="addressID" />
+                <ScalarProperty Name="contractorUserID" ColumnName="contractorUserID" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="priceRangeID" ColumnName="priceRangeID" />
+                <ScalarProperty Name="endDate" ColumnName="endDate" />
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="galleryID" ColumnName="galleryID" />
+                <ScalarProperty Name="jobID" ColumnName="jobID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="renoRatorDBModel" ZoomLevel="85" >
+        <EntityTypeShape EntityType="renoratordbModel.Address" Width="1.5" PointX="0.75" PointY="5.25" Height="2.9417936197916674" />
+        <EntityTypeShape EntityType="renoratordbModel.City" Width="1.5" PointX="1.5" PointY="1.75" Height="1.9802864583333335" />
+        <EntityTypeShape EntityType="renoratordbModel.Gallery" Width="1.5" PointX="0.75" PointY="9.875" Height="2.7494921874999996" />
+        <EntityTypeShape EntityType="renoratordbModel.JobAd" Width="1.5" PointX="6" PointY="9.5" Height="3.7109993489583317" />
+        <EntityTypeShape EntityType="renoratordbModel.Phone" Width="1.5" PointX="7.5" PointY="16.625" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="renoratordbModel.PhoneType" Width="1.5" PointX="5.25" PointY="21" Height="1.595683593749996" />
+        <EntityTypeShape EntityType="renoratordbModel.Photo" Width="1.5" PointX="3" PointY="19.5" Height="2.172587890624996" />
+        <EntityTypeShape EntityType="renoratordbModel.PriceRange" Width="1.5" PointX="0.75" PointY="18" Height="1.9802864583333317" />
+        <EntityTypeShape EntityType="renoratordbModel.Province" Width="1.5" PointX="1.5" PointY="15" Height="1.5956835937499996" />
+        <EntityTypeShape EntityType="renoratordbModel.RatingQuestion" Width="1.5" PointX="11.5" PointY="8.75" Height="1.5956835937500031" />
+        <EntityTypeShape EntityType="renoratordbModel.Review" Width="1.5" PointX="8.5" PointY="11.75" Height="3.5186979166666745" />
+        <EntityTypeShape EntityType="renoratordbModel.ReviewComment" Width="1.5" PointX="10.75" PointY="14.625" Height="2.1725878906249942" />
+        <EntityTypeShape EntityType="renoratordbModel.ReviewHelpful" Width="1.5" PointX="10.75" PointY="11.625" Height="2.172587890624996" />
+        <EntityTypeShape EntityType="renoratordbModel.ReviewRating" Width="1.5" PointX="13.75" PointY="12.375" Height="2.172587890624996" />
+        <EntityTypeShape EntityType="renoratordbModel.User" Width="1.5" PointX="5.25" PointY="13.875" Height="5.8263151041666674" />
+        <EntityTypeShape EntityType="renoratordbModel.UserType" Width="1.5" PointX="3" PointY="23" Height="1.5956835937500031" />
+        <AssociationConnector Association="renoratordbModel.city_id" >
+          <ConnectorPoint PointX="1.875" PointY="3.7302864583333335" />
+          <ConnectorPoint PointX="1.875" PointY="5.25" />
+        </AssociationConnector>
+        <AssociationConnector Association="renoratordbModel.jobad_ibfk_2" >
+          <ConnectorPoint PointX="2.25" PointY="7.1510594833988428" />
+          <ConnectorPoint PointX="2.4479166666666665" PointY="7.1510594833988419" />
+          <ConnectorPoint PointX="2.7083333333333335" PointY="7.1510594833988428" />
+          <ConnectorPoint PointX="5.4418960945512831" PointY="7.1510594833988419" />
+          <ConnectorPoint PointX="5.6085627612179492" PointY="7.1510594833988428" />
+          <ConnectorPoint PointX="6.75" PointY="7.1510594833988428" />
+          <ConnectorPoint PointX="6.75" PointY="9.5" />
+        </AssociationConnector>
+        <AssociationConnector Association="renoratordbModel.user_ibfk_4" >
+          <ConnectorPoint PointX="2.25" PointY="6.1692772416994215" />
+          <ConnectorPoint PointX="2.4479166666666665" PointY="6.1692772416994206" />
+          <ConnectorPoint PointX="2.6145833333333335" PointY="6.1692772416994215" />
+          <ConnectorPoint PointX="5.5252294278846161" PointY="6.1692772416994215" />
+          <ConnectorPoint PointX="5.5252294278846161" PointY="13.875" />
+        </AssociationConnector>
+        <AssociationConnector Association="renoratordbModel.city_ibfk_1" >
+          <ConnectorPoint PointX="2.53125" PointY="15" />
+          <ConnectorPoint PointX="2.53125" PointY="3.7302864583333335" />
+        </AssociationConnector>
+        <AssociationConnector Association="renoratordbModel.jobad_ibfk_4" >
+          <ConnectorPoint PointX="2.25" PointY="10.713470393880208" />
+          <ConnectorPoint PointX="2.4479166666666665" PointY="10.713470393880208" />
+          <ConnectorPoint PointX="2.6145833333333335" PointY="10.713470393880208" />
+          <ConnectorPoint PointX="5.317550111378206" PointY="10.713470393880206" />
+          <ConnectorPoint PointX="5.6085627612179492" PointY="10.713470393880208" />
+          <ConnectorPoint PointX="5.6792838806089749" PointY="10.713470393880208" />
+          <ConnectorPoint PointX="5.845950547275641" PointY="10.713470393880208" />
+          <ConnectorPoint PointX="6" PointY="10.713470393880208" />
+        </AssociationConnector>
+        <AssociationConnector Association="renoratordbModel.photo_ibfk_1" >
+          <ConnectorPoint PointX="2.25" PointY="11.40832649556244" />
+          <ConnectorPoint PointX="2.4479166666666665" PointY="11.40832649556244" />
+          <ConnectorPoint PointX="2.6145833333333335" PointY="11.40832649556244" />
+          <ConnectorPoint PointX="3.8125" PointY="11.40832649556244" />
+          <ConnectorPoint PointX="3.8125" PointY="19.5" />
+        </AssociationConnector>
+        <AssociationConnector Association="renoratordbModel.review_ibfk_4" >
+          <ConnectorPoint PointX="1.09375" PointY="12.6244921875" />
+          <ConnectorPoint PointX="1.09375" PointY="13.449521425781256" />
+          <ConnectorPoint PointX="2.4479166666666665" PointY="13.449521425781256" />
+          <ConnectorPoint PointX="2.6145833333333335" PointY="13.449521425781256" />
+          <ConnectorPoint PointX="3.7291666666666665" PointY="13.449521425781256" />
+          <ConnectorPoint PointX="3.8958333333333335" PointY="13.449521425781256" />
+          <ConnectorPoint PointX="4.7169573232171542" PointY="13.449521425781256" />
+          <ConnectorPoint PointX="4.9343922206530513" PointY="13.449521425781256" />
+          <ConnectorPoint PointX="5.317550111378206" PointY="13.449521425781255" />
+          <ConnectorPoint PointX="5.6085627612179492" PointY="13.449521425781256" />
+          <ConnectorPoint PointX="5.6792838806089749" PointY="13.449521425781256" />
+          <ConnectorPoint PointX="5.845950547275641" PointY="13.449521425781256" />
+          <ConnectorPoint PointX="6.291666666666667" PointY="13.449521425781256" />
+          <ConnectorPoint PointX="6.458333333333333" PointY="13.449521425781256" />
+          <ConnectorPoint PointX="6.8854186666666672" PointY="13.449521425781256" />
+          <ConnectorPoint PointX="7.0520853333333333" PointY="13.449521425781256" />
+          <ConnectorPoint PointX="8.1666666666666661" PointY="13.449521425781256" />
+          <ConnectorPoint PointX="8.3333333333333339" PointY="13.449521425781256" />
+          <ConnectorPoint PointX="8.5" PointY="13.449521425781256" />
+        </AssociationConnector>
+        <AssociationConnector Association="renoratordbModel.user_ibfk_2" >
+          <ConnectorPoint PointX="2.25" PointY="12.599106572115385" />
+          <ConnectorPoint PointX="2.4723244349011213" PointY="12.821431007016505" />
+          <ConnectorPoint PointX="2.5901755650988791" PointY="12.939282137214264" />
+          <ConnectorPoint PointX="3" PointY="13.349106572115385" />
+          <ConnectorPoint PointX="3" PointY="12.875" />
+          <ConnectorPoint PointX="3.7291666666666665" PointY="12.875" />
+          <ConnectorPoint PointX="3.8958333333333335" PointY="12.875" />
+          <ConnectorPoint PointX="4.2765374615384619" PointY="12.875" />
+          <ConnectorPoint PointX="5.2765374615384619" PointY="13.875" />
+        </AssociationConnector>
+        <AssociationConnector Association="renoratordbModel.user_ibfk_5" >
+          <ConnectorPoint PointX="2.2257692307692305" PointY="12.6244921875" />
+          <ConnectorPoint PointX="2.4723244349011213" PointY="12.871047391631889" />
+          <ConnectorPoint PointX="2.5901755650988791" PointY="12.988898521829647" />
+          <ConnectorPoint PointX="2.625" PointY="13.023722956730769" />
+          <ConnectorPoint PointX="2.625" PointY="13.25" />
+          <ConnectorPoint PointX="2.8175600945512813" PointY="13.249999999999998" />
+          <ConnectorPoint PointX="3.0833333333333335" PointY="13.25" />
+          <ConnectorPoint PointX="3.7291666666666665" PointY="13.25" />
+          <ConnectorPoint PointX="3.8958333333333335" PointY="13.25" />
+          <ConnectorPoint PointX="4.6007692307692309" PointY="13.25" />
+          <ConnectorPoint PointX="5.25" PointY="13.899230769230769" />
+        </AssociationConnector>
+        <AssociationConnector Association="renoratordbModel.jobad_ibfk_1" >
+          <ConnectorPoint PointX="6.375" PointY="13.875" />
+          <ConnectorPoint PointX="6.375" PointY="13.210999348958332" />
+        </AssociationConnector>
+        <AssociationConnector Association="renoratordbModel.jobad_ibfk_3" >
+          <ConnectorPoint PointX="2.25" PointY="18.7187505" />
+          <ConnectorPoint PointX="3.7291666666666665" PointY="18.7187505" />
+          <ConnectorPoint PointX="3.8958333333333335" PointY="18.7187505" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="18.7187505" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="18.7187505" />
+          <ConnectorPoint PointX="5" PointY="18.7187505" />
+          <ConnectorPoint PointX="5" PointY="13.625" />
+          <ConnectorPoint PointX="5.317550111378206" PointY="13.624999999999998" />
+          <ConnectorPoint PointX="5.6085627612179492" PointY="13.625" />
+          <ConnectorPoint PointX="5.6792838806089749" PointY="13.625" />
+          <ConnectorPoint PointX="5.845950547275641" PointY="13.625" />
+          <ConnectorPoint PointX="6.291666666666667" PointY="13.625" />
+          <ConnectorPoint PointX="6.458333333333333" PointY="13.625" />
+          <ConnectorPoint PointX="6.968752" PointY="13.625" />
+          <ConnectorPoint PointX="6.968752" PointY="13.210999348958332" />
+        </AssociationConnector>
+        <AssociationConnector Association="renoratordbModel.phone_ibfk_1" >
+          <ConnectorPoint PointX="6.75" PointY="17.614470401041668" />
+          <ConnectorPoint PointX="7.5" PointY="17.614470401041668" />
+        </AssociationConnector>
+        <AssociationConnector Association="renoratordbModel.phone_ibfk_2" >
+          <ConnectorPoint PointX="6.75" PointY="21.001152846153843" />
+          <ConnectorPoint PointX="7.125" PointY="20.626152846153843" />
+          <ConnectorPoint PointX="7.125" PointY="18.429918992187503" />
+          <ConnectorPoint PointX="7.5" PointY="18.429918992187503" />
+        </AssociationConnector>
+        <AssociationConnector Association="renoratordbModel.user_ibfk_3" >
+          <ConnectorPoint PointX="4.5" PointY="19.985260416666669" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="19.985260416666669" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="19.985260416666669" />
+          <ConnectorPoint PointX="5.25" PointY="19.985260416666669" />
+        </AssociationConnector>
+        <AssociationConnector Association="renoratordbModel.reviewrating_ibfk_2" >
+          <ConnectorPoint PointX="12.65625" PointY="10.345683593750003" />
+          <ConnectorPoint PointX="12.65625" PointY="14.203837890624996" />
+          <ConnectorPoint PointX="13.75" PointY="14.203837890624996" />
+        </AssociationConnector>
+        <AssociationConnector Association="renoratordbModel.review_ibfk_1" >
+          <ConnectorPoint PointX="6.75" PointY="14.845101963889064" />
+          <ConnectorPoint PointX="8.5" PointY="14.845101963889064" />
+        </AssociationConnector>
+        <AssociationConnector Association="renoratordbModel.review_ibfk_3" >
+          <ConnectorPoint PointX="6.75" PointY="14.297550981944532" />
+          <ConnectorPoint PointX="8.5" PointY="14.297550981944532" />
+        </AssociationConnector>
+        <AssociationConnector Association="renoratordbModel.reviewcomment_ibfk_2" >
+          <ConnectorPoint PointX="10" PointY="14.946848958333334" />
+          <ConnectorPoint PointX="10.416666666666666" PointY="14.946848958333334" />
+          <ConnectorPoint PointX="10.583333333333334" PointY="14.946848958333334" />
+          <ConnectorPoint PointX="10.75" PointY="14.946848958333334" />
+        </AssociationConnector>
+        <AssociationConnector Association="renoratordbModel.reviewhelpful_ibfk_1" >
+          <ConnectorPoint PointX="10" PointY="12.773793945312498" />
+          <ConnectorPoint PointX="10.75" PointY="12.773793945312498" />
+        </AssociationConnector>
+        <AssociationConnector Association="renoratordbModel.reviewrating_ibfk_1" >
+          <ConnectorPoint PointX="10" PointY="13.969462890624996" />
+          <ConnectorPoint PointX="11.416666666666666" PointY="13.969462890624996" />
+          <ConnectorPoint PointX="11.583333333333334" PointY="13.969462890624996" />
+          <ConnectorPoint PointX="12.572916666666666" PointY="13.969462890624996" />
+          <ConnectorPoint PointX="12.739583333333334" PointY="13.969462890624996" />
+          <ConnectorPoint PointX="13.75" PointY="13.969462890624996" />
+        </AssociationConnector>
+        <AssociationConnector Association="renoratordbModel.reviewcomment_ibfk_1" >
+          <ConnectorPoint PointX="6.75" PointY="15.790598958333337" />
+          <ConnectorPoint PointX="10.416666666666666" PointY="15.790598958333337" />
+          <ConnectorPoint PointX="10.583333333333334" PointY="15.790598958333337" />
+          <ConnectorPoint PointX="10.75" PointY="15.790598958333337" />
+        </AssociationConnector>
+        <AssociationConnector Association="renoratordbModel.reviewhelpful_ibfk_2" >
+          <ConnectorPoint PointX="6.75" PointY="16.702534679687503" />
+          <ConnectorPoint PointX="7.25" PointY="16.702534679687503" />
+          <ConnectorPoint PointX="7.25" PointY="16.375" />
+          <ConnectorPoint PointX="10.5" PointY="16.375" />
+          <ConnectorPoint PointX="10.5" PointY="14.375" />
+          <ConnectorPoint PointX="11.5" PointY="14.375" />
+          <ConnectorPoint PointX="11.5" PointY="13.797587890624996" />
+        </AssociationConnector>
+        <AssociationConnector Association="renoratordbModel.user_ibfk_1" >
+          <ConnectorPoint PointX="4.5" PointY="23.001152846153843" />
+          <ConnectorPoint PointX="4.875" PointY="22.626152846153843" />
+          <ConnectorPoint PointX="4.875" PointY="16.144929509615377" />
+          <ConnectorPoint PointX="4.916666666666667" PointY="16.144929509615377" />
+          <ConnectorPoint PointX="5.083333333333333" PointY="16.144929509615377" />
+          <ConnectorPoint PointX="5.25" PointY="16.144929509615377" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="renoratordbModel.message" Width="1.5" PointX="7.5" PointY="19.875" Height="2.3648893229166674" />
+        <AssociationConnector Association="renoratordbModel.message_ibfk_1" >
+          <ConnectorPoint PointX="6.75" PointY="19.962757556260058" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="19.962757556260058" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="19.962757556260058" />
+          <ConnectorPoint PointX="7.5" PointY="19.962757556260058" />
+        </AssociationConnector>
+        <AssociationConnector Association="renoratordbModel.message_ibfk_2" >
+          <ConnectorPoint PointX="6.75" PointY="20.2791391947967" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="20.2791391947967" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="20.2791391947967" />
+          <ConnectorPoint PointX="7.5" PointY="20.2791391947967" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="renoratordbModel.Job" Width="1.5" PointX="8.5" PointY="6.75" Height="4.0956022135416674" />
+        <AssociationConnector Association="renoratordbModel.job_ibfk_1" >
+          <ConnectorPoint PointX="2.25" PointY="7.7339265515952551" />
+          <ConnectorPoint PointX="2.4479166666666665" PointY="7.7339265515952542" />
+          <ConnectorPoint PointX="2.7083333333333335" PointY="7.7339265515952551" />
+          <ConnectorPoint PointX="5.4418960945512831" PointY="7.7339265515952542" />
+          <ConnectorPoint PointX="5.6085627612179492" PointY="7.7339265515952551" />
+          <ConnectorPoint PointX="6.666666666666667" PointY="7.7339265515952542" />
+          <ConnectorPoint PointX="6.833333333333333" PointY="7.7339265515952551" />
+          <ConnectorPoint PointX="8.5" PointY="7.7339265515952551" />
+        </AssociationConnector>
+        <AssociationConnector Association="renoratordbModel.job_ibfk_3" >
+          <ConnectorPoint PointX="2.25" PointY="9.8761528461538468" />
+          <ConnectorPoint PointX="2.4723244349011204" PointY="9.6538284112527251" />
+          <ConnectorPoint PointX="2.5901755650988791" PointY="9.5359772810549686" />
+          <ConnectorPoint PointX="2.625" PointY="9.5011528461538468" />
+          <ConnectorPoint PointX="2.625" PointY="6.375" />
+          <ConnectorPoint PointX="5.4418960945512831" PointY="6.3749999999999991" />
+          <ConnectorPoint PointX="5.6085627612179492" PointY="6.375" />
+          <ConnectorPoint PointX="8.125" PointY="6.375" />
+          <ConnectorPoint PointX="8.5" PointY="6.75" />
+        </AssociationConnector>
+        <AssociationConnector Association="renoratordbModel.job_ibfk_2" >
+          <ConnectorPoint PointX="2.25" PointY="18.328123249999997" />
+          <ConnectorPoint PointX="3.7291666666666665" PointY="18.328123249999997" />
+          <ConnectorPoint PointX="3.8958333333333335" PointY="18.328123249999997" />
+          <ConnectorPoint PointX="4.9375" PointY="18.328123249999997" />
+          <ConnectorPoint PointX="4.9375" PointY="13.625" />
+          <ConnectorPoint PointX="4.9432041282051289" PointY="13.625" />
+          <ConnectorPoint PointX="5.109870794871795" PointY="13.625" />
+          <ConnectorPoint PointX="5.317550111378206" PointY="13.624999999999998" />
+          <ConnectorPoint PointX="5.6085627612179492" PointY="13.625" />
+          <ConnectorPoint PointX="5.6792838806089749" PointY="13.625" />
+          <ConnectorPoint PointX="5.845950547275641" PointY="13.625" />
+          <ConnectorPoint PointX="6.291666666666667" PointY="13.625" />
+          <ConnectorPoint PointX="6.458333333333333" PointY="13.625" />
+          <ConnectorPoint PointX="8.25" PointY="13.625" />
+          <ConnectorPoint PointX="8.25" PointY="11.412903645833332" />
+          <ConnectorPoint PointX="9.0937504999999987" PointY="11.412903645833332" />
+          <ConnectorPoint PointX="9.0937504999999987" PointY="11.037903645833334" />
+        </AssociationConnector>
+        <AssociationConnector Association="renoratordbModel.job_ibfk_4" >
+          <ConnectorPoint PointX="5.762617213942308" PointY="13.875" />
+          <ConnectorPoint PointX="5.762617213942308" PointY="8.61696577579762" />
+          <ConnectorPoint PointX="6.666666666666667" PointY="8.61696577579762" />
+          <ConnectorPoint PointX="6.833333333333333" PointY="8.61696577579762" />
+          <ConnectorPoint PointX="8.5" PointY="8.61696577579762" />
+        </AssociationConnector>
+        <AssociationConnector Association="renoratordbModel.review_ibfk_2" >
+          <ConnectorPoint PointX="9.60937525" PointY="11.037903645833334" />
+          <ConnectorPoint PointX="9.60937525" PointY="11.75" />
+        </AssociationConnector>
+        <AssociationConnector Association="renoratordbModel.job_ibfk_5" >
+          <ConnectorPoint PointX="5.400883444711539" PointY="13.875" />
+          <ConnectorPoint PointX="5.400883444711539" PointY="9.0584853878988039" />
+          <ConnectorPoint PointX="5.4418960945512831" PointY="9.0584853878988039" />
+          <ConnectorPoint PointX="5.6085627612179492" PointY="9.0584853878988039" />
+          <ConnectorPoint PointX="5.6792838806089749" PointY="9.0584853878988039" />
+          <ConnectorPoint PointX="5.845950547275641" PointY="9.0584853878988039" />
+          <ConnectorPoint PointX="6.666666666666667" PointY="9.0584853878988039" />
+          <ConnectorPoint PointX="6.833333333333333" PointY="9.0584853878988039" />
+          <ConnectorPoint PointX="8.5" PointY="9.0584853878988039" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,33 @@
+﻿@model RenoRator.Models.JobAd
+
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/shared/main_layout.cshtml";
+}
+
+<div id="slider">
+    <div id="slides" class="left">
+        <div class="slides_container">
+            <div><img src="../../public/img/contractor_slide.png" width="960" height="400" /></div>
+            <div><img src="../../public/img/feedback_slide.png" width="960" height="400" /></div>
+            <div><img src="../../public/img/jobad_slide.png" width="960" height="400" /></div>
+        </div>
+    </div>
+    @if (Session["userID"] == null)
+    {
+        <div id="slider_info">
+            @Html.ActionLink("Register Now", "Register", null, new { @class = "orange_btn" })
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#slides').slides({
+            preload: true,
+            play: 5000,
+            pause: 2500,
+            slideSpeed: 750
+        });
+    });
+</script>

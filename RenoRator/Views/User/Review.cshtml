@@ -1,0 +1,290 @@
+﻿@{
+    ViewBag.Title = "Review";
+    Layout = "~/Views/shared/main_layout.cshtml";
+}
+
+@if (Model != null)
+{
+    <div class="new_message_dialog">
+        <div style="text-align:center;">
+            <h2>New Message to @Model.user1.fname @Model.user1.lname</h2>
+        </div>
+        <div class="form_container">
+            @using (Html.BeginForm("New", "Message", FormMethod.Post))
+            {
+                @Html.ValidationSummary(true)
+                <input type="hidden" name="receiverID" value="@Model.user1.userID" />
+                <div class="form-row">
+                    <label>Subject:</label>
+                    @Html.ValidationMessage("msgSubject")
+                    @Html.Editor("msgSubject")
+                </div>
+
+                <div class="form-row">
+                    <label>Message:</label>
+                    @Html.ValidationMessage("msgBody")
+                    @Html.TextArea("msgBody", "", new { @rows = 8, @cols = 60 })
+                </div>
+
+                <p>
+                    <input type="submit" value="Send" class="orange_btn" />
+                </p>
+            }
+        </div>
+    </div>
+}
+
+<div class="two_column_left">
+    <div class="content_col_header"><h3>Contractor</h3></div>
+    <div class="contactContents">
+        <div class="user_profile_img_2">
+            @if(Model.user1.profilePhotoID != null)
+            {
+                <img src="@Model.user1.photo.path" class="profilePic" />
+            }
+            else
+            {
+                <img src="~/public/img/icons/user.png" class="profilePic" />
+            }
+            <a href="/User/Profile/@Model.contractorUserID"><h3>@Model.user1.fname @Model.user1.lname</h3></a>
+        </div>
+        <table id="contactInfo">
+            @if (Model.user1.company != null && Model.user1.company.Trim() != "")
+            {
+                <tr>
+                    <td>
+                        <div class="company_desc" style="width:200px;">
+                            <strong>Company:</strong><br/>
+                            <div style="margin-left:20px;float:left;">@Model.user1.company</div>
+                            <div class="clear"></div>
+                        </div>
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td class="title">Address:</td>
+            </tr>
+            <tr>
+                <td><p>@Model.user1.address.addressLine1</p></td>
+            </tr>
+            @if (Model.user1.addressID > 0 && Model.user1.address.addressLine2.Trim() != "")
+            {
+                <tr>
+                    <td><p>@Model.user1.address.addressLine2.Trim()</p></td>
+                </tr>
+            }
+            <tr>
+                <td><p>@Model.user1.address.city.city1 @Model.user1.address.city.province.province1</p></td>
+            </tr>
+            <tr>
+                <td><p>@Model.user1.address.country</p></td>
+            </tr>
+            <tr>
+                <td><p>@Model.user1.address.postalCode</p></td>
+            </tr>
+            <tr>
+                <td class="title">Email:</td>
+            </tr>
+            <tr>
+                <td><p><a href="mailto:@Model.user1.email">@Model.user1.email</a></p></td>
+            </tr>        
+        </table>
+        <div id="phone_info">
+            @foreach (var p in Model.user1.phones)
+            {             
+                <div class="phone_desc">
+                    <span class="phone_type">@p.phonetype.description:</span>
+                    <div class="clear"></div>
+                    <p>
+                        @if (p.phoneNo.Length > 9)
+                        {
+                           @p.phoneNo.Substring(0, 3)@Html.Raw("-")
+                           @p.phoneNo.Substring(3, 3)@Html.Raw("-")
+                           @p.phoneNo.Substring(6, 4);
+                        }
+                        else
+                        {
+                            @p.phoneNo;
+                        }
+                    </p>                    
+                    <div class="clear"></div>                    
+                </div>                
+            }
+        </div>        
+    </div>        
+    @if (Session["userID"] != null && (int)Model.contractorUserID != (int)Session["userID"])
+    {
+        <p><input id="msg_btn" type="submit" value="Message Now" class="orange_btn" style="width:180px;margin:0 20px;"/></p>
+    }
+</div>
+
+<div class="two_column_right">
+    <div class="content_col_header"><h3>Review</h3></div>
+    <div>
+        @{
+            var leftHelpful = false;
+            <div class="single_review">
+                <div class="review_photo">
+                    @if (Model.user.profilePhotoID != null)
+                    {
+                        <img style="width:100px;" src="@Model.user.photo.path"/>
+                    }
+                    else
+                    {
+                        <img style="width:100px;" src="~/public/img/icons/user.png"/>
+                    }
+                </div>
+                <div>
+                    <strong><a href="/User/Profile/@Model.user.userID">@Model.user.fname @Model.user.lname</a></strong>
+                    <br />
+                    <p>@Model.review1</p>
+                    <div class="clear"></div>
+                    @foreach (var rr in Model.reviewratings)
+                    {
+                        <div style="float:left">@rr.ratingquestion.question</div>
+                        <div style="float:right" id="small_rating_@rr.reviewRatingID"></div>
+                        <div class="clear"></div>
+                        <script type="text/javascript">
+                            $("#small_rating_@rr.reviewRatingID").raty({
+                                readOnly: true,
+                                half: true,
+                                score: '@rr.rating',
+                                starHalf: 'hammer-half-small.png',
+                                starOff: 'hammer-off-small.png',
+                                starOn: 'hammer-on-small.png'
+                            });
+                        </script>
+                    }                    
+                </div>
+                <div class="clear"></div>
+                <div class="review_helpful">
+                    @if (@Model.reviewhelpfuls.Count > 0)
+                    {
+                        var helpfulCount = 0;
+                        foreach (var h in Model.reviewhelpfuls)
+                        {
+                            if (h.isGood == true)
+                            {
+                                helpfulCount++;
+                            }
+                            if (Session["userID"] != null && h.userID == (int)Session["userID"])
+                            {
+                                leftHelpful = true;
+                            }
+                        }
+                        <span>@helpfulCount out of @Model.reviewhelpfuls.Count people found this review helpful.</span><br/>
+                    }
+                    @if (Session["userID"] != null)
+                    {
+                        if (leftHelpful)
+                        {
+                            <span>(You have voted already)</span>
+                        }
+                        else
+                        {
+                            <span>
+                                Was this review helpful? <a href="#" onclick="postReviewHelpful(@Model.reviewID, true);$(this).parent().html('Updating...');return false;">Yes</a> | 
+                                <a href="#" onclick="postReviewHelpful(@Model.reviewID, false);$(this).parent().html('Updating...');return false;">No</a>
+                            </span>
+                        }
+                    }
+                </div>
+                <div class="clear"></div>
+                @foreach (var com in Model.reviewcomments)
+                {
+                    <div class="review_comment">
+                        <div style="margin:5px;float:left;">
+                            @if (com.user.profilePhotoID != null)
+                            {
+                                <img style="display:inline-block; width:50px;" src="@com.user.photo.thumbPath"/>
+                            }
+                            else
+                            {
+                                <img style="display:inline-block; width:50px;" src="~/public/img/icons/user.png"/>
+                            }
+                        </div>
+                        <div>
+                            <strong><a href="/User/Profile/@com.user.userID">@com.user.fname @com.user.lname</a></strong>
+                            <br />
+                            <p>@com.comment</p>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                }
+                @if (Session["userID"] != null)
+                {
+                    <div class="comment_dialog edit_dialog" id="comment_dialog_@Model.reviewID">
+                        <div style="text-align:center;">
+                            <h2>Add a Comment</h2>
+                        </div>
+                        <div class="form_container">
+                            @using (Html.BeginForm("PostComment", "Review", FormMethod.Post))
+                            {
+                                <input type="hidden" value="@Model.contractorUserID" name="contractorUserID" />
+                                <input type="hidden" value="@Model.reviewID" name="reviewID" />
+                                <div class="form-row">
+                                    <label>Comment:</label>
+                                    @Html.ValidationMessage("comment")
+                                    @Html.TextArea("comment", new { @rows = 5, @cols = 60 })
+                                </div>
+
+                                <p>
+                                    <span class="comment_error" style="color:Red;display:none;">Please leave comment</span>
+                                    <input type="submit" value="Add Comment" class="submit_comment orange_btn" name="@Model.reviewID"/>
+                                </p>
+                            }
+                        </div>
+                    </div>
+                    <span style="float:right"><a href="#" name="@Model.reviewID" class="leave_comment_link">Add a comment</a></span>
+                    <div class="clear"></div>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $(".comment_dialog").dialog({
+            autoOpen: false,
+            width: 500,
+            height: 350,
+            modal: true
+        });
+
+        $(".leave_comment_link").click(function (e) {
+            e.preventDefault();
+            var id = "#comment_dialog_" + $(this).prop("name");
+            $(id).dialog("open");
+        });
+
+        $(".submit_comment").click(function () {
+            if ($.trim($("#comment_dialog_" + $(this).prop("name")).find("textarea").val()) == "") {
+                $("#comment_dialog_" + $(this).prop("name")).find(".comment_error").show();
+                return false;
+            }
+        });
+
+        $(".new_message_dialog").dialog({
+            autoOpen: false,
+            width: 500,
+            height: 500,
+            modal: true
+        });
+        $("#msg_btn").click(function () {
+            $(".new_message_dialog").dialog("open");
+        });
+    });
+
+    function postReviewHelpful(reviewId, isGood) {
+        $.ajax({
+            data: { reviewId: reviewId, good: isGood },
+            type: "POST",
+            url: '@Url.Action("PostReviewHelpful", "Review")',
+            success: function () {
+                window.location.reload();
+            }
+        });
+    }
+</script>

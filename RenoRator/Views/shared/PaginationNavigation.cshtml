@@ -1,0 +1,47 @@
+﻿@if(ViewBag.pages > 1)
+{
+    <div class="navigation">    
+        @if (Convert.ToInt32(ViewBag.page) > 0)
+        {
+            if (ViewBag.tag != null) // nav for job ads
+            {
+                @Html.ActionLink("<< Previous Page", "Ads", new { page = Convert.ToInt32(ViewBag.page) - 1, tag = Convert.ToString(ViewBag.tag) })
+            }
+            else                     // default nav
+            {    
+                @Html.ActionLink("<< Previous Page", ViewContext.Controller.ValueProvider.GetValue("action").RawValue.ToString(), new { page = Convert.ToInt32(ViewBag.page) - 1 })
+            }
+        }
+        @for (double pagenum = 0; pagenum < ViewBag.pages; pagenum++)
+        {
+            if (Request.QueryString.HasKeys() && double.Parse(Request.QueryString["page"]) == pagenum)
+            {
+                <span><strong>[@(pagenum + 1)]</strong></span>
+            }
+            else if (!Request.QueryString.HasKeys() && pagenum == 0)
+            {
+                <span><strong>[1]</strong></span>
+            }
+            else
+            {
+                if (ViewBag.tag != null) // nav for job ads
+                {
+                    @Html.ActionLink("[" + (pagenum + 1) + "]", "Ads", new { page = pagenum, tag = Convert.ToString(ViewBag.tag) })
+                }else                    // default nav
+                {
+                    @Html.ActionLink("[" + (pagenum + 1) + "]", ViewContext.Controller.ValueProvider.GetValue("action").RawValue.ToString(), new { page = pagenum })
+                }
+            }
+        }
+        @if (ViewBag.page+1 != Convert.ToInt32(ViewBag.pages))
+        {
+            if (ViewBag.tag != null) // nav for job ads
+            {
+                @Html.ActionLink("Next Page >>", "Ads", new { page = Convert.ToInt32(ViewBag.page) + 1, tag = Convert.ToString(ViewBag.tag) })
+            }else                    // default nav
+            {
+                @Html.ActionLink("Next Page >>", ViewContext.Controller.ValueProvider.GetValue("action").RawValue.ToString(), new { page = Convert.ToInt32(ViewBag.page) + 1, }, new { @class = "pagination" })
+            }
+        }
+    </div>
+}

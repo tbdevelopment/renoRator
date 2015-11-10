@@ -1,0 +1,84 @@
+﻿.portfolioJob:hover
+{
+    cursor:pointer;
+}
+#portfoliowrapper
+{
+    display:none;
+}
+.scroll
+{
+    overflow-x: scroll;
+	overflow-y: hidden;
+}
+#portfolioJobs
+{
+    height:90px;
+}
+
+.portfolioJob
+{
+    width: 100px;
+    text-align: center;
+    background: white;
+    border-radius: 5px;
+    margin: 5px;
+    padding:2px;
+    display:inline-block;
+}
+#portfolioJobs > .dialogJob:hover
+{
+    cursor: pointer;
+}
+#portfolioJobs > .dialogJob
+{
+    width: 100px;
+    text-align: center;
+    background: white;
+    border-radius: 5px;
+    margin: 5px;
+    padding:2px;
+    display:block;
+}
+#portfoliowrapper > div
+{
+    display:inline-block;      
+    vertical-align:top;
+}
+#portfolioJobs 
+{
+    overflow-y:scroll;
+    overflow-x:hidden;
+    height:100%;
+    max-width:15%;
+}
+#selectedJob
+{
+    width:85%;
+}
+.alignTop
+{
+    vertical-align:top;
+}
+.jobDesc
+{
+    height:100%;
+    max-width:100%;
+}
+.jobDesc > div
+{
+    display:inline-block;
+    vertical-align:top;
+}
+.InfoContainer
+{
+    max-width:62%;
+}
+.gallerificContainer .content
+{
+    width:auto;
+}
+#jobDescription
+{
+    margin:0;
+}

@@ -1,0 +1,82 @@
+﻿@model RenoRator.Models.User
+
+@{
+    ViewBag.Title = "ProfilePicture";
+    Layout = "~/Views/shared/main_layout.cshtml";
+}
+
+@System.Web.Optimization.Styles.Render("~/bundles/css")
+
+<div id="profilePictures" class="two_column_right middle" style="width:960px;">
+    <div class="content_col_header">
+        <h2>Profile Pictures</h2>
+    </div>
+    @if (Model.profileGalleryID != null && Model.gallery.photos.Count() > 0)
+    {
+        @Html.HiddenFor(model => model.profileGalleryID)
+        foreach (RenoRator.Models.Photo p in Model.gallery.photos)
+        {
+            <div class="profilePictureChangeDisplay">
+                <img id="@p.photoID" src="@p.thumbPath"/>
+            </div>
+        }
+        using (Html.BeginForm("SelectPhoto", "User", FormMethod.Post, new { style="height:60px;"}))
+        {
+            @Html.ValidationSummary(true)
+            <input hidden="hidden" id="selectedPhoto" name="selectedPhoto" />
+            <input hidden="hidden" id="user" name="userID" value="@Model.userID" />
+            <input type="submit" id="selectPicture" value="Select Profile Picture" class="orange_btn_disabled" disabled="disabled" style="float:right; margin-right:10px;"/>
+            
+        }
+    }
+    else
+    {
+        <p style="text-align:center; padding:15px;">You Do not have any Profile Pictures to choose from. Upload new pictures below.</p>
+    }
+</div>
+
+<div class="post_ad_image_uploader" style="padding-top:15px;">
+    @Html.Partial("image_uploader")
+</div>
+
+<div class="form_container">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+        <input hidden="hidden" id="uploadedImages" name="uploadedImages" />
+        <input type="submit" value="Finish Upload" class="orange_btn" onclick="return saveImages();" />
+    }
+</div>
+
+<script>
+    $('.profilePictureChangeDisplay').each(function (index) {
+        $(this).click(function (index) {
+            $('.activePicture').removeClass('activePicture');
+            $('#selectPicture').removeClass('orange_btn_disabled');
+            $('#selectPicture').addClass('orange_btn');
+            $('#selectPicture').removeAttr('disabled', '');
+            $('#selectedPhoto').val($(this).children().first().attr('id'));
+            $(this).addClass('activePicture');
+        });
+    });
+
+    function saveImages() {
+        var filenames = [];
+        $.each(uploader_files, function () {
+            filenames.push($(this)[0].name);
+        });
+        // remove dups
+        filenames = removeDuplicates(filenames);
+        $('#uploadedImages').val(filenames.join('|'));
+    }
+
+    function removeDuplicates(a) {
+        var temp = {};
+        for (var i = 0; i < a.length; i++)
+            temp[a[i]] = true;
+        var r = [];
+        for (var k in temp)
+            r.push(k);
+        return r;
+    }
+</script>

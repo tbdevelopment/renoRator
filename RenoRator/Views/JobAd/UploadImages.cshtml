@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "UploadImages";
+    Layout = "~/Views/shared/main_layout.cshtml";
+}
+
+@System.Web.Optimization.Styles.Render("~/bundles/css")
+
+<div class="post_ad_image_uploader" style="padding-top:15px;">
+    @Html.Partial("image_uploader")
+</div>
+ <div class="form_container">
+
+        @using (Html.BeginForm()) {
+            @Html.ValidationSummary(true)
+            @Html.Hidden("jobAdID", (object)ViewBag.jobAdID.ToString())
+            <input hidden="hidden" id="uploadedImages" name="uploadedImages" />
+            <input type="submit" value="Finish" class="orange_btn" onclick="return saveImages();" />
+        }
+ </div>
+
+<script>
+    function saveImages() {
+        var filenames = [];
+        $.each(uploader_files, function () {
+            filenames.push($(this)[0].name);
+        });
+        // remove dups
+        filenames = removeDuplicates(filenames);
+        $('#uploadedImages').val(filenames.join('|'));
+    }
+
+    function removeDuplicates(a) {
+        var temp = {};
+        for (var i = 0; i < a.length; i++)
+            temp[a[i]] = true;
+        var r = [];
+        for (var k in temp)
+            r.push(k);
+        return r;
+    }
+</script>

@@ -1,0 +1,232 @@
+﻿@model RenoRator.Models.JobAd
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/shared/main_layout.cshtml";
+}
+
+<div class="three_column_left">
+    <div class="content_col_header">
+            <h2>Photos</h2>
+    </div>
+    <div id="container">
+		<div id="gallery" class="content">
+			<div id="controls" class="controls"></div>
+			<div class="slideshow-container">
+				<div id="loading" class="loader"></div>
+				<div id="slideshow" class="slideshow"></div>
+			</div>
+			<!--div id="caption" class="caption-container"></div-->
+		</div>
+		<div id="thumbs" class="navigation">
+			<ul class="thumbs noscript">
+                @if (Model.galleryID != null)
+                {
+                    foreach (var item in Model.gallery.photos)
+                    {
+				        <li>
+					        <a class="thumb" name="leaf" href="@item.path" title="@item.description" width="50">
+						        <img src="@item.thumbPath" alt="@item.description" />
+					        </a>
+					        <div class="caption">
+						        <div class="download">
+							        <a href="@item.path">Download Original</a>
+						        </div>
+						        <div class="image-title"></div>
+						        <div class="image-desc">@item.description</div>
+					        </div>
+				        </li>
+                    }
+                }
+                else
+                {
+                    <li>
+					    <a class="thumb" name="leaf" href="~/public/img/logo.png" title="Default Photo" width="50">
+						    <img src="~/public/img/logo.png" />
+					    </a>
+					    <div class="caption">
+						    <div class="download">
+							    <a href="#">Download Original</a>
+						    </div>
+						    <div class="image-title"></div>
+						    <div class="image-desc"></div>
+					    </div>
+				    </li>
+                }
+			</ul>
+		</div>
+		<div style="clear: both;"></div>
+	</div>
+</div>
+
+<div class="three_column_middle">
+    <div class="content_col_header"><h2>@Html.DisplayFor(model => model.title)</h2></div>
+    <table id="attributeTable" border="0" cellpadding="3" cellspacing="0" width="100%">
+        <colgroup><col><col width="99%"></colgroup>
+        <tbody>
+            <tr>
+                <td nowrap="" valign="top" class="firstCol first_row ">Target End Date</td>
+                <td class="first_row">
+                    @Html.DisplayFor(model => model.targetEndDate)
+                </td>
+            </tr>
+            <tr>
+                <td nowrap="" valign="top" class="firstCol ">Price</td>
+                <td>@Html.DisplayFor(model => model.pricerange.min) - @Html.DisplayFor(model => model.pricerange.max)</td>
+            </tr>
+            <tr>
+                <td nowrap="" valign="top" class="firstCol ">Address</td>
+                <td>@Html.DisplayFor(model => model.address.addressLine1), @Html.DisplayFor(model => model.address.postalCode)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="detailContent">
+        <p class="subTitle">Description</p>
+        <p class="description">@Html.DisplayFor(model => model.description)</p>
+        @if(Model.tags != null)
+        {
+        <p>
+            <small>Tags:
+            @foreach (string tag in Model.tags.Split('|'))
+            {
+                @Html.ActionLink(tag, "Ads", new { page = 0, tag = tag });
+                <span>&#xA0;</span>
+            }
+            </small>
+        </p>
+        }
+        <p>@Html.ActionLink("Back to Ad List", "Ads")</p>
+    </div>
+</div>
+
+<div class="three_column_right">
+    <div class="content_col_header"><h2>Options</h2></div>
+    
+    @if (Session["userID"] != null && (int)Session["userID"] != Model.userID)
+    {
+        <div class="options">
+            <p><input id="msg_btn" type="submit" value="Message Now" class="orange_btn" style="width:100%" /></p>
+            @using (Html.BeginForm("NewAppointment", "Message", FormMethod.Post))
+            {
+                @Html.Hidden("receiverID", Model.userID)
+                @Html.Hidden("msgSubject", "Appointment request for '" + Model.title + "'");
+                @Html.Hidden("msgBody", "Hello " + Model.user.fname + " " + Model.user.lname + ".\n I would like to get an appointment with you to discuss the job and get more details about it. Please let me know if you are interested.");
+                @Html.Hidden("jobadID", Url.RequestContext.RouteData.Values["id"]);
+                <p><input id="apt_btn" type="submit" value="Request Appointment" class="orange_btn" style="width:100%" /></p>
+            }
+        </div>
+    }
+    else if (Session["userID"] != null && (int)Session["userID"] == Model.userID)
+    {
+        // do something..
+    }
+    else
+    {
+        <p style="text-align:center;">Login to contact.</p>
+    }
+</div>
+
+@if (Session["userID"] != null && (int)Session["userID"] != Model.userID)
+{
+    if (Model != null)
+    {
+        <div class="new_message_dialog">
+            <div style="text-align:center;">
+                <h2>New Message to @Model.user.fname @Model.user.lname</h2>
+            </div>
+            <div class="form_container">
+                @using (Html.BeginForm("New", "Message", FormMethod.Post))
+                {
+                    @Html.ValidationSummary(true)
+                    @Html.Hidden("receiverID", Model.userID)
+                    <div class="form-row">
+                        <label>Subject:</label>
+                        @Html.ValidationMessage("msgSubject")
+                        @Html.TextBox("msgSubject", "RE: " + Model.title)
+                    </div>
+
+                    <div class="form-row">
+                        <label>Message:</label>
+                        @Html.ValidationMessage("msgBody")
+                        @Html.TextArea("msgBody", "", 8, 60, new { @id = "msgBody2" })
+                    </div>
+
+                    <p>
+                        <input type="submit" value="Send" class="orange_btn" />
+                    </p>
+                }
+            </div>
+</div>
+    }
+    
+    <script type="text/javascript">
+        $(".new_message_dialog").dialog({
+            autoOpen: false,
+            width: 500,
+            height: 500,
+            modal: true
+        });
+        $("#msg_btn").click(function () {
+            $(".new_message_dialog").dialog("open");
+            $("#msgBody2").focus();
+        });
+    </script>
+}
+
+<script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        // We only want these styles applied when javascript is enabled
+        $('div.navigation').css({ 'width': '200px', 'float': 'left' });
+        $('div.content').css('display', 'block');
+
+        // Initially set opacity on thumbs and add
+        // additional styling for hover effect on thumbs
+        var onMouseOutOpacity = 0.67;
+        $('#thumbs ul.thumbs li').opacityrollover({
+            mouseOutOpacity: onMouseOutOpacity,
+            mouseOverOpacity: 1.0,
+            fadeSpeed: 'fast',
+            exemptionSelector: '.selected'
+        });
+
+        // Initialize Advanced Galleriffic Gallery
+        var gallery = $('#thumbs').galleriffic({
+            delay: 2500,
+            numThumbs: 4,
+            preloadAhead: 10,
+            enableTopPager: true,
+            enableBottomPager: false,
+            maxPagesToShow: 7,
+            imageContainerSel: '#slideshow',
+            controlsContainerSel: '#controls',
+            //captionContainerSel: '#caption',
+            loadingContainerSel: '#loading',
+            renderSSControls: true,
+            renderNavControls: true,
+            playLinkText: 'Play Slideshow',
+            pauseLinkText: 'Pause Slideshow',
+            prevLinkText: '&lsaquo; Previous Photo',
+            nextLinkText: 'Next Photo &rsaquo;',
+            nextPageLinkText: 'Next &rsaquo;',
+            prevPageLinkText: '&lsaquo; Prev',
+            enableHistory: false,
+            autoStart: false,
+            syncTransitions: true,
+            defaultTransitionDuration: 900,
+            enableKeyboardNavigation: false,
+            onSlideChange: function (prevIndex, nextIndex) {
+                // 'this' refers to the gallery, which is an extension of $('#thumbs')
+                this.find('ul.thumbs').children()
+                    .eq(prevIndex).fadeTo('fast', onMouseOutOpacity).end()
+                    .eq(nextIndex).fadeTo('fast', 1.0);
+            },
+            onPageTransitionOut: function (callback) {
+                this.fadeTo('fast', 0.0, callback);
+            },
+            onPageTransitionIn: function () {
+                this.fadeTo('fast', 1.0);
+            }
+        });
+    });
+</script>

@@ -1,0 +1,118 @@
+﻿@model RenoRator.Models.Job
+
+@{
+    ViewBag.Title = "AddJob";
+    Layout = "~/Views/shared/main_layout.cshtml";
+}
+<link href="~/public/css/token-input.css" rel="stylesheet" />
+
+<script src="~/Scripts/jquery.tokeninput.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#startDate").datepicker({ dateFormat: "yy-mm-dd" });
+        $("#endDate").datepicker({ dateFormat: "yy-mm-dd" });
+        $('#customer').tokenInput('/User/getUsersByQuery', {
+            tokenLimit: 1,
+            onAdd: function (item) {
+                $('#userID').val(item.id);
+            },
+            onDelete: function () {
+                $('#userID').val('');
+            }
+        });
+    });
+</script>
+
+<div class="two_column_right middle">
+    <div class="content_col_header">
+        <h2>New Portfolio Job</h2>
+    </div>
+    <div class="form_container">
+
+        @using (Html.BeginForm()) {
+            @Html.ValidationSummary(true)
+
+            <div class="form-row">
+                @Html.LabelFor(model => model.title)
+                @Html.EditorFor(model => model.title)
+                @Html.ValidationMessageFor(model => model.title)
+            </div>
+            
+            <div class="form-row">
+                @Html.LabelFor(model => model.startDate)
+                @Html.EditorFor(model => model.startDate)
+                @Html.ValidationMessageFor(model => model.startDate)
+            </div>
+            
+            <div class="form-row">
+                @Html.LabelFor(model => model.endDate)
+                @Html.EditorFor(model => model.endDate)
+                @Html.ValidationMessageFor(model => model.endDate)
+            </div>
+            <div class="form-row">
+                @Html.LabelFor(model => model.userID)
+                <input type="text" id="customer" />
+                <input type="hidden" id="userID" />
+            </div>
+            <div class="form-row">
+                @Html.LabelFor(model => model.address.addressLine1)
+                @Html.ValidationMessageFor(model => model.address.addressLine1)
+                @Html.EditorFor(model => model.address.addressLine1)
+            </div>
+
+            <div class="form-row">
+                @Html.LabelFor(model => model.address.addressLine2)
+                @Html.ValidationMessageFor(model => model.address.addressLine2)
+                @Html.EditorFor(model => model.address.addressLine2)
+            </div>
+
+            <div class="form-row">
+                @Html.LabelFor(model => model.address.postalCode)
+                @Html.ValidationMessageFor(model => model.address.postalCode)
+                @Html.EditorFor(model => model.address.postalCode, new { @maxLength = 6 })
+            </div>
+            
+            <div class="form-row">
+                @Html.LabelFor(model => model.address.city.provinceID)
+                @Html.ValidationMessageFor(model => model.address.city.provinceID)
+                <div class="styled-select">
+                    @Html.DropDownList("address.city.provinceID", ViewBag.provinces as SelectList, "Select a province", new { id = "address.city.provinceID" })
+                </div>
+            </div>
+            
+            <div class="form-row">
+                @Html.LabelFor(model => model.address.cityID)
+                @Html.ValidationMessageFor(model => model.address.cityID)
+                <div class="styled-select">
+                    @Html.DropDownList("address.cityID", ViewBag.cities as SelectList, "Select a city", new { id = "address.cityID" })
+                </div>
+            </div>
+            <div class="form-row">
+                @Html.LabelFor(model => model.priceRangeID)
+                <div class="styled-select">
+                    @Html.DropDownList("priceRangeID", ViewBag.priceranges as SelectList, "Select a price range", new { id = "priceRangeID" })
+                </div>
+            </div>
+            
+             <div class="form-row">
+                @Html.LabelFor(model => model.description)
+                @Html.TextAreaFor(model => model.description, new { cols = 60, rows = 14 })
+                @Html.ValidationMessageFor(model => model.description)
+            </div>
+            
+            <div class="form-row">
+                @Html.LabelFor(model => model.tags)
+                @Html.EditorFor(model => model.tags)
+                @Html.ValidationMessageFor(model => model.tags)
+            </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+        }
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Edit")
+</div>

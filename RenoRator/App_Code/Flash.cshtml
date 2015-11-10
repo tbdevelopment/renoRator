@@ -1,0 +1,21 @@
+﻿@helper FlashMessage(System.Web.Mvc.TempDataDictionary tempData)
+{
+    var flash = tempData.Where(item => item.Key.StartsWith("flash-"))
+        .Select(item => 
+            new { Message = item.Value, ClassName = item.Key }).FirstOrDefault();
+    if (flash != null)
+    {
+    <script type="text/javascript">
+        $(function () {
+            //var $flash = $('<div id="flash" style="display:none;">');
+            var $flash = $('<div id="flash">');
+            $flash.html('@flash.Message');
+            $flash.toggleClass('flash');
+            $flash.toggleClass('@flash.ClassName');
+            $('.body').prepend($flash);
+            $flash.slideDown('slow');
+            $flash.click(function () { $(this).slideToggle('highlight'); });
+        });
+    </script>
+    }
+}

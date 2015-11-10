@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/shared/main_layout.cshtml";
+}
+
+<div class="two_column_right middle">
+    <div class="content_col_header">
+        <h2>Log In</h2>
+    </div>
+    <div class="form_container">
+        @using (Html.BeginForm()) {
+            @Html.ValidationSummary(true)
+
+            <div class="editor-label">
+                Email:
+            </div>
+            <div class="editor-field">
+                @Html.Editor("user_email")
+            </div>
+       
+            <div class="editor-label">
+                Password:
+            </div>
+            <div class="editor-field">
+                @Html.Password("password")
+            </div>
+            <div style="padding-bottom:15px; text-align:left;">
+                <input type="submit" value="Log me in" class="orange_btn" style="display:inline-block;" />
+                @Html.ActionLink("Register Now", "Register", "User")
+            </div>
+            
+        }
+        
+    </div>
+</div>

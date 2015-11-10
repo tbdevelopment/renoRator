@@ -1,0 +1,941 @@
+﻿@model RenoRator.Models.User
+@using System.Linq
+
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/shared/main_layout.cshtml";
+}
+<link href="~/public/css/portfolioStyle.css" rel="stylesheet" />
+<script src="~/Scripts/Portfolio.js"></script>
+@if (Model != null)
+{
+    <div class="new_message_dialog">
+        <div style="text-align:center;">
+            <h2>New Message to @Model.fname @Model.lname</h2>
+        </div>
+        <div class="form_container">
+            @using (Html.BeginForm("New", "Message", FormMethod.Post))
+            {
+                @Html.ValidationSummary(true)
+                @Html.Hidden("receiverID", Model.userID)
+                <div class="form-row">
+                    <label>Subject:</label>
+                    @Html.ValidationMessage("msgSubject")
+                    @Html.Editor("msgSubject")
+                </div>
+
+                <div class="form-row">
+                    <label>Message:</label>
+                    @Html.ValidationMessage("msgBody")
+                    @Html.TextArea("msgBody", "", new { @rows = 8, @cols = 60 })
+                </div>
+
+                <p>
+                    <input type="submit" value="Send" class="orange_btn" id="send_msg_btn"/>
+                </p>
+            }
+        </div>
+    </div>
+}
+
+@if (Session["userID"] != null && (int)ViewBag.user == (int)Session["userID"])
+{
+    <div id="edit_bio_dialog" class="edit_dialog">
+        <div style="text-align:center;">
+            <h2>Edit your Bio</h2>
+        </div>
+        <div class="form_container">
+            @using (Html.BeginForm("EditBio", "User", FormMethod.Post))
+            {
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(model => model.userID)
+                <div class="form-row">
+                    <label>Bio:</label>
+                    @Html.ValidationMessageFor(model => model.bio)
+                    @Html.TextAreaFor(model => model.bio, new { @rows = 8, @cols = 60 })
+                </div>
+
+                <p>
+                    <input type="submit" value="Update Bio" class="orange_btn" />
+                </p>
+            }
+        </div>
+    </div>
+    <div id="edit_company_dialog" class="edit_dialog">
+        <div style="text-align:center;">
+            <h2>Edit your Company</h2>
+        </div>
+        <div class="form_container">
+            @using (Html.BeginForm("EditCompany", "User", FormMethod.Post))
+            {
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(model => model.userID)
+                <div class="form-row">
+                    <label>Company:</label>
+                    @Html.ValidationMessageFor(model => model.company)
+                    @Html.EditorFor(model => model.company)
+                </div>
+
+                <p>
+                    <input type="submit" value="Update Company" class="orange_btn" />
+                </p>
+            }
+        </div>
+    </div>
+    <div id="new_phone_dialog" class="edit_dialog">
+        <div style="text-align:center;">
+            <h2>Add your Phone</h2>
+        </div>
+        <div class="form_container">
+            <div id="new_phones">
+                @using (Html.BeginForm("AddPhones", "User", FormMethod.Post))
+                {
+                    @Html.ValidationSummary(true)
+                    <div class="form-row">
+                        <label>Phone Type:</label>
+                        @Html.ValidationMessage("phoneTypeID")
+                        <div class="styled-select">
+                            @Html.DropDownList("phoneTypeID", new SelectList(ViewBag.phonetypes.ToArray(), "phoneTypeID", "description"), "Select type", new { id = "phoneType" })
+                        </div>
+                    </div>                                  
+                    <div class="form-row">
+                        <label>Phone No:</label>
+                        @Html.ValidationMessage("phoneNo")
+                        @Html.Editor("phoneNo")
+                    </div>
+                }            
+                <a href="#" style="float:right;" id="newPhoneFormLink"  onclick='addPhoneForm();'>Add another phone</a>
+            </div>
+            <p style="text-align:center;">
+                <input type="submit" id="addPhonesSubmit" value="Add Phones" class="orange_btn" />
+            </p>
+        </div>        
+    </div>
+    <div id="edit_address_dialog" class="edit_dialog">
+        <div style="text-align:center;">
+            <h2>Edit your Address</h2>
+        </div>
+        <div class="form_container">
+            @using (Html.BeginForm("EditAddress", "User", FormMethod.Post))
+            {
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(model => model.userID);
+                <div class="form-row">
+                    <label>Address Line 1:</label>
+                    @Html.ValidationMessageFor(model => model.address.addressLine1)
+                    @Html.EditorFor(model => model.address.addressLine1)
+                </div>
+
+                <div class="form-row">
+                    <label>Address Line 2:</label>
+                    @Html.ValidationMessageFor(model => model.address.addressLine2)
+                    @Html.EditorFor(model => model.address.addressLine2)
+                </div>
+
+                <div class="form-row">
+                    <label>Postal Code:</label>
+                    @Html.ValidationMessageFor(model => model.address.postalCode)
+                    @Html.EditorFor(model => model.address.postalCode, new { @maxLength = 6 })
+                </div>
+                @*                
+                <div class="form-row">
+                    <label>Country:</label>
+                    @Html.ValidationMessageFor(model => model.address.country)
+                    @Html.EditorFor(model => model.address.country, new { @maxLength = 6 })
+                </div>*@
+
+                <div class="form-row">
+                    <label>Province:</label>
+                    @Html.ValidationMessageFor(model => model.address.city.provinceID)
+                    <div class="styled-select">
+                        @Html.DropDownListFor(model => model.address.city.provinceID, ViewBag.provinces as SelectList, "Select a province", new { id = "address_city_provinceID" })
+                    </div>
+                </div>
+            
+                <div class="form-row">
+                    <label>City:</label>
+                    @Html.ValidationMessageFor(model => model.address.cityID)
+                    <div class="styled-select">
+                        @Html.DropDownListFor(model => model.address.cityID, ViewBag.cities as SelectList, "Select a city", new { id = "address_cityID" })
+                    </div>
+                </div>
+
+                <p>
+                    <input type="submit" value="Update Address" class="orange_btn" id="update_address_btn" />
+                </p>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <div id="feedback_dialog" class="edit_dialog">
+        <div style="text-align:center;">
+            <h2>Leave feedback</h2>
+        </div>
+        <div class="form_container">
+            @using (Html.BeginForm("New", "Review", FormMethod.Post))
+            {
+                @Html.ValidationSummary(true)
+                @Html.Hidden("contractorUserID", Model.userID)
+                <div class="form-row">
+                    <label>Feedback:</label>
+                    @Html.ValidationMessage("review1")
+                    @Html.TextArea("review1", "", new { @id = "feedback_review_area", @rows = 6, @cols = 60 })
+                </div>
+                var count = 0;
+                foreach (var q in ViewBag.ratingQuestions)
+                {
+                    <div class="form-row" style="margin-bottom:10px;text-align:left;">
+                        <label>@q.question</label>
+                        @Html.Hidden("rating" + count, 0, new { @id = "rating_val_" + count })
+                        <br />
+                        <div id="rate_@count" style="margin-top:10px;"></div>
+		                <script type="text/javascript">
+		                    $("#rate_@count").raty({
+		                        click   : function (score, evt) {
+		                            $("#rating_val_@count").val(score);
+		                        },
+                                half    : true,
+                                cancel  : true
+                            });
+		                </script>
+                    </div>
+                    count += 1;
+                }
+
+                <p>
+                    <span id="feedback_error" style="color:Red;display:none;">Please leave feedback</span>
+                    <input type="submit" value="Leave Feedback" id="submit_feedback" class="orange_btn" />
+                </p>
+            }
+        </div>
+    </div>
+}
+<div class="two_column_left">
+    <div class="content_col_header"><h3>DETAILS</h3></div>
+
+
+    <div class="contactContents">
+        <div class="user_profile_img_2">
+            @if (Model.profilePhotoID != null)
+            {
+                <div style="width:100%;">
+                    <img src="@Model.photo.path" alt="Profile Picture" class="profilePic2" />
+                </div>
+            }
+            else
+            {
+                <img src="~/public/img/icons/user.png" class="profilePic2" />
+            }
+            <h3>@Html.DisplayFor(model => model.fname) @Html.DisplayFor(model => model.lname)</h3>
+        </div>
+        @if (Session["userID"] != null && (int)ViewBag.user == (int)Session["userID"])
+        {
+            @Html.ActionLink("Change Profile Picture", "ProfilePicture", "User");
+        }
+        <table id="contactInfo">
+            @if (Model.userTypeID == 2)
+            {
+                <tr>
+                    <td class="title">Rating:</td>
+                </tr>
+                <tr>
+                    <td>
+                        <div id="overall_rating"></div>
+                        <script type="text/javascript">
+                            $("#overall_rating").raty({
+                                readOnly : true,
+                                half     : true,
+                                score    : '@ViewBag.rating'
+                            });
+                        </script>
+                    </td>
+                </tr>
+            }
+            @if (Model.company != null && Model.company.Trim() != "")
+            {
+                <tr>
+                    <td>
+                        <div class="company_desc" style="width:200px;">
+                            <strong>Company:</strong><br/>
+                            <div style="margin-left:20px;float:left;">@Html.DisplayFor(model => model.company)</div>
+                            <div class="phone_tools"><a href="#" id="edit_company_link"><img title="Edit" src="../../public/img/icons/edit_icon.png" /></a></div>
+                            <div class="clear"></div>
+                        </div>
+                    </td>
+                </tr>
+            }
+            else
+            {
+                if (Session["userID"] != null && (int)ViewBag.user == (int)Session["userID"])
+                {
+                    <tr>
+                    <td class="title">Company:</td>
+                </tr>
+                <tr>
+                    <td><p><a href="#" id="add_company_link">Add a company</a></p></td>
+                </tr>
+                }
+            }
+            <tr>
+                <td class="title">Address:</td>
+            </tr>
+            <tr>
+                <td><p>@Html.DisplayFor(model => model.address.addressLine1)</p></td>
+            </tr>
+            @if (Model.addressID > 0 && !Model.address.addressLine2.IsEmpty())
+            {
+                <tr>
+                    <td><p>@Html.DisplayFor(model => model.address.addressLine2)</p></td>
+                </tr>
+            }
+            <tr>
+                <td><p>@Html.DisplayFor(model => model.address.city.city1) @Html.DisplayFor(model => model.address.city.province.province1)</p></td>
+            </tr>
+            <tr>
+                <td><p>@Html.DisplayFor(model => model.address.country)</p></td>
+            </tr>
+            <tr>
+                <td><p>@Html.DisplayFor(model => model.address.postalCode)</p></td>
+            </tr>
+            <tr>
+                <td>
+                    <p>
+                        @if (Session["userID"] != null && (int)ViewBag.user == (int)Session["userID"])
+                        {
+                            <a href="#" id="editAddressLink" style="float:left;">Edit Address</a>
+                        }
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td class="title">Email:</td>
+            </tr>
+            <tr>
+                <td><p><a href="mailto:@Model.email">@Model.email</a></p></td>
+            </tr>        
+        </table>
+        <div id="phone_info">
+            @foreach (var p in Model.phones)
+            {
+                var pId = "edit_phone_dialog" + p.phoneID;
+                <div id="@pId" class="edit_dialog edit_phone">
+                    <div style="text-align:center;">
+                        <h2>Edit your Phone</h2>
+                    </div>
+                    <div class="form_container">
+                        @using (Html.BeginForm("EditPhone", "User", FormMethod.Post))
+                        {
+                            @Html.ValidationSummary(true)
+                            @Html.Hidden("phoneID", p.phoneID)
+                            <div class="form-row">
+                                <label>Phone Type:</label>
+                                @Html.ValidationMessage("phoneTypeID")
+                                <div class="styled-select">    
+                                    @Html.DropDownList("phoneTypeID", new SelectList(ViewBag.phonetypes.ToArray(), "phoneTypeID", "description", p.phoneTypeID), "Select type", new { })
+                                </div>
+                            </div>                                  
+                            <div class="form-row">
+                                <label>Phone No: </label>
+                                @Html.ValidationMessage("phoneNo")
+                                @Html.TextBox("phoneNo", p.phoneNo)
+                            </div>
+                            <p style="text-align:center;">
+                                <input type="submit" value="Update Phone" class="orange_btn update_phone_btn" />
+                            </p>
+                        }
+                    </div>
+                </div>
+                <div class="phone_desc">
+                    <span class="phone_type">@p.phonetype.description:</span>
+                    <div class="clear"></div>
+                    @if (Session["userID"] != null && (int)ViewBag.user == (int)Session["userID"])
+                    {
+                        <div class="phone_tools">
+                            <a href="#" class="edit_phone_link" name="@p.phoneID"><img title="Edit" src="../../public/img/icons/edit_icon.png" /></a>
+                            <a href="#" class="delete_phone_link" name="@p.phoneID"><img title="Delete" src="../../public/img/icons/delete_icon.png" /></a>
+                        </div>
+                    }
+                    <p>@if (p.phoneNo.Length > 9)
+                       {
+                           @p.phoneNo.Substring(0, 3)@Html.Raw("-")
+                           @p.phoneNo.Substring(3, 3)@Html.Raw("-")
+                           @p.phoneNo.Substring(6, 4);
+                       }
+                       else
+                       {
+                            @p.phoneNo;
+                       }
+                    </p>                    
+                    <div class="clear"></div>                    
+                </div>                
+            }
+            @if (Session["userID"] != null && (int)ViewBag.user == (int)Session["userID"])
+            {
+                <a href="#" id="newPhoneLink" style="float:left;margin:5px;">Add Phone Number</a>
+            }
+        </div>
+        
+    </div>        
+    @if (Session["userID"] != null && (int)ViewBag.user != (int)Session["userID"])
+    {
+        <p><input id="msg_btn" type="submit" value="Message Now" class="orange_btn" style="width:180px;margin:0 20px;"/></p>
+    }
+</div>
+
+<div class="two_column_right">
+    <div class="content_col_header"><h3>BIO</h3></div>
+    <div class="contents">
+        @if (Model.bio != null && Model.bio != "")
+        {
+            <p>@Html.Raw(Model.bio.Replace("\n", "<br/>"))</p>
+        }
+        else
+        {
+            <p>Bio information has not been provided yet...</p>
+        }
+        @if (Session["userID"] != null && (int)ViewBag.user == (int)Session["userID"])
+        {
+            <a href="#" id="editBioLink">Edit Bio</a>
+        }
+    </div>
+</div>
+
+@if (Model.userTypeID == 2)
+{
+    <div class="two_column_right">
+        <div class="content_col_header">
+            <h3 style="display:inline;">PORTFOLIO</h3>
+        </div>
+        <div class="contents">
+            @if (ViewBag.PortfolioJobs != null && ViewBag.PortfolioJobs.Count > 0)
+            {
+                <div id="portfoliowrapper">
+                    <div id="portfolioJobs"></div>
+                    <div id="selectedJob"></div>
+                </div>
+                <div class="scroll">
+                    <div id="portfolioJobsHolder">
+                               @foreach (var job in ViewBag.PortfolioJobs)
+                        {
+                            <div class="portfolioJob" data-id="@job.jobID">
+                                    @{
+                            foreach (var p in job.gallery.photos)
+                            {
+                                        <img src="@p.thumbPath" />
+                                break;
+                            }
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <p>Portfolio has not been created yet...</p>   
+            }               
+            @if (Session["userID"] != null && (int)ViewBag.user == (int)Session["userID"])
+            {
+                @Html.ActionLink("Edit Portfolio", "Edit", "Portfolio")            
+            }
+        </div>
+    </div>
+
+    <div class="two_column_right">
+        <div class="content_col_header"><h3>FEEDBACK</h3></div>
+    
+        <div>
+        @if (ViewBag.reviews.Count > 0)
+        {
+            foreach (var rev in ViewBag.reviews)
+            {
+                <div class="single_review">
+                    <div class="review_photo">
+                        @if (rev.user.profilePhotoID != null)
+                        {
+                            <img style="width:100px;" src="@rev.user.photo.path"/>
+                        }
+                        else
+                        {
+                        <img style="width:100px;" src="~/public/img/icons/user.png"/>
+                        }
+                    </div>
+                    <div>
+                        <strong><a href="/User/Profile/@rev.user.userID">@rev.user.fname @rev.user.lname</a></strong>
+                        <br />
+                        @{
+                        string review = "";
+                        if (rev.review1.Length > 200)
+                        {
+                            review = rev.review1.Substring(0, 200) + "...";
+                        }
+                        else
+                        {
+                            review = rev.review1;
+                        }   
+                        }
+                        @review
+                        <br /><br/>
+                        <a href="/User/Review/@rev.reviewID">View full review</a>
+                        <br />
+                        <div class="review_details" style="margin-top:25px;">
+                            <div style="float:right;margin:0 10px 0 75px;">
+                                @{
+                        var comm_str = @rev.reviewcomments.Count == 1 ? "comment" : "comments";                               
+                                    <a href="/User/Review/@rev.reviewID">@rev.reviewcomments.Count @comm_str</a>
+                                }
+                            </div>
+                            <div class="review_rating" style="width:300px;float:right;">
+                                @{
+                        var rating = 0.0;
+                        foreach (var rr in rev.reviewratings)
+                        {
+                            rating += rr.rating;
+                        }
+                        rating = rating / rev.reviewratings.Count;
+                                }       
+                                <strong>Overall rating:</strong> 
+                                <div style="float:right;margin-left:10px;">( @rating / 5 )</div> 
+                                <div style="float:right;margin-left:0 !important;" id="small_rating_@rev.reviewID"></div>
+                                <script type="text/javascript">
+                                    $("#small_rating_@rev.reviewID").raty({
+                                        readOnly: true,
+                                        half: true,
+                                        score: '@rating',
+                                        starHalf: 'hammer-half-small.png',
+                                        starOff: 'hammer-off-small.png',
+                                        starOn: 'hammer-on-small.png'
+                                    });
+                                </script>
+                            </div>
+                        </div>                         
+                    </div>
+                    <div class="clear"></div>                    
+                </div>
+            }
+        }
+        else
+        {
+            <div class="contents">
+                <p>No feedback has been provided yet...</p>
+            </div>
+        }
+        </div>
+    
+        @if (Session["userID"] != null && (int)ViewBag.user != (int)Session["userID"])
+        {
+            <p class="leaveFeedback"><input type="submit" value="Leave Feedback" class="orange_btn" id="leave_feedback_btn" style="width:180px;"/></p>
+        }
+    </div>
+}
+
+@{
+    if (ViewBag.userads != null)
+    {
+    <div class="two_column_right">
+        <div class="content_col_header"><h3>MY ADS</h3></div>
+
+        <table class="table_results"><tbody>
+        @if (ViewBag.userads.Count > 0)
+        {
+            <tr>
+                <td colspan="4" style="border-bottom:1px solid #00AFEF;padding:5px;">
+                    <a href="#" id="selectAll" style="float:left;">Select All</a>
+                    <a href="#" id="deleteMultipleAds" style="float:left;display:none;margin-left:15px">Delete Selected</a>
+                </td>
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <td colspan="4" style="border-bottom:1px solid #00AFEF;padding:5px;text-align:center;">
+                    <p>You have no ads available. @Html.ActionLink("Creat Ad", "Post", "JobAd")</p>
+                </td>
+            </tr>
+        }
+        @foreach (RenoRator.Models.JobAd jobAd in ViewBag.userads)
+        {
+            <tr class="table_results_row">
+                <td style="padding-left: 25px;width: 60px;">
+                    <div class="ad_checkbox">
+                        <input type="checkbox" id="@jobAd.jobAdID" />
+                    </div>
+                </td>
+                <td style="width:110px;">
+                    <div class="thumbnail thumb_img">
+                        @if (jobAd.gallery != null && jobAd.gallery.photos.Count > 0)
+                        {
+                            var photo = jobAd.gallery.photos.FirstOrDefault();
+                            if (!String.IsNullOrEmpty(jobAd.gallery.description))
+                            {
+                                <img style="display:inline-block;" src="@photo.path" alt="@photo.description"/>
+                            }
+                            else
+                            {
+                                <img style="display:inline-block;" src="@photo.path" />
+                            }
+                        }
+                        else
+                        {
+                            <img style="display:inline-block;" src="../../public/img/logo.png" alt="ad pic"/>
+                        }
+                    </div>
+                </td>
+                <td>
+                    @Html.ActionLink((string)jobAd.title, "Details", new { controller = "JobAd", id = jobAd.jobAdID, @class = "detailLink" })
+                </td>
+                <td style="width:100px;">
+                    @Html.ActionLink("Edit", "Edit", new { controller = "JobAd", id = jobAd.jobAdID })
+                    @Html.ActionLink("Delete", "DeleteSingle", new { controller = "JobAd", id = jobAd.jobAdID }, new { @class = "delete_link" })
+                </td>
+            </tr>
+        }
+        </tbody></table>
+        </div>
+    }  
+}
+
+
+
+@if (Session["userID"] != null && (int)ViewBag.user == (int)Session["userID"])
+{
+    <script type="text/javascript">
+        $(function () {
+            $(".company_desc").hover(
+                function () {
+                    $(this).find(".phone_tools").show();
+                },
+                function () {
+                    $(this).find(".phone_tools").hide();
+                }
+            );
+
+            $(".phone_desc").hover(
+                function () {
+                    $(this).find(".phone_tools").show();
+                },
+                function () {
+                    $(this).find(".phone_tools").hide();
+                }
+            );
+
+            $("#new_phone_dialog").dialog({
+                autoOpen: false,
+                width: 500,
+                height: 350,
+                modal: true
+            });
+
+            $(".edit_phone").dialog({
+                autoOpen: false,
+                width: 500,
+                height: 350,
+                modal: true
+            });
+
+            $(".edit_phone_link").click(function (e) {
+                e.preventDefault();
+                var id = "#edit_phone_dialog" + $(this).prop("name");
+                $(id).dialog("open");
+            });
+
+            $(".delete_phone_link").click(function (e) {
+                e.preventDefault();
+                var phoneId = parseInt($(this).prop("name"));
+                if (confirm('Are you sure you want to delete a phone number from your list?')) {
+                    $.ajax({
+                        data: { id: phoneId },
+                        type: "POST",
+                        url: '@Url.Action("DeletePhone", "User")',
+                        traditional: true,
+                        success: function () {
+                            window.location.reload();
+                        }
+                    });
+                    $(this).hide();
+                } else {
+                    // Do nothing!
+                }
+            });
+
+            $("#newPhoneLink").click(function (e) {
+                e.preventDefault();
+                $("#new_phone_dialog").dialog("open");
+            });
+
+            $("#addPhonesSubmit").click(function (e) {
+                e.preventDefault();
+                if (validatePhoneDialog()) {
+                var formArray = new Array();
+                $("#new_phone_dialog").find("form").each(function () {
+                    formArray.push([$(this).find("[name=phoneTypeID]").val(), $(this).find("[name=phoneNo]").val()]);
+                });
+                $.ajax({
+                    data: JSON.stringify({ forms: formArray }),
+                    type: "POST",
+                    contentType: 'application/json',
+                    url: '@Url.Action("AddPhones", "User")',
+                    traditional: true,
+                    success: function () {
+                            $('#addPhonesSubmit').hide();
+                        window.location.reload();
+                    }
+                });
+                    
+                }
+            });
+        });
+
+        function addPhoneForm() {
+            $("#newPhoneFormLink").remove();
+            var html_str = "<hr/><form action='/User/AddPhones' method='post'><div class='form-row'><label>Phone Type:</label>";
+            html_str += "<span class='field-validation-valid' data-valmsg-for='phoneTypeID' data-valmsg-replace='true'></span>";
+            html_str += "<div class='styled-select'><select id='phoneType' name='phoneTypeID'><option value=''>Select type</option>";
+            html_str += "<option value='1'>Mobile</option><option value='2'>Home</option><option value='3'>Work</option></select>";
+            html_str += "</div></div><div class='form-row'><label>Phone No:</label><span class='field-validation-valid' data-valmsg-for='phoneNo' data-valmsg-replace='true'></span>";
+            html_str += "<input class='text-box single-line' id='phoneNo' name='phoneNo' type='text' value=''></div></form>";
+            html_str += "<a href='#' style='float:right;' id='newPhoneFormLink' onclick='addPhoneForm();'>Add another phone</a>";
+            $("#new_phones").append(html_str);
+            return false;
+        }
+
+        
+    </script>
+}
+
+<script type="text/javascript">
+    $(function () {
+        $("#feedback_dialog").dialog({
+            autoOpen: false,
+            width: 500,
+            height: 650,
+            modal: true
+        });
+
+        $("#leave_feedback_btn").click(function (e) {
+            e.preventDefault();
+            $("#feedback_dialog").dialog("open");
+        });
+
+        $("#submit_feedback").click(function () {
+            if ($.trim($("#feedback_review_area").val()) == "") {
+                $("#feedback_error").show();
+                return false;
+            }
+        });
+
+        $(".comment_dialog").dialog({
+            autoOpen: false,
+            width: 500,
+            height: 350,
+            modal: true
+        });
+
+        $(".leave_comment_link").click(function (e) {
+            e.preventDefault();
+            var id = "#comment_dialog_" + $(this).prop("name");
+            $(id).dialog("open");
+        });
+
+        $(".submit_comment").click(function () {
+            if ($.trim($("#comment_dialog_"+$(this).prop("name")).find("textarea").val()) == "") {
+                $("#comment_dialog_" + $(this).prop("name")).find(".comment_error").show();
+                return false;
+            }
+        });
+
+        $(".new_message_dialog").dialog({
+            autoOpen: false,
+            width: 500,
+            height: 500,
+            modal: true
+        });
+        $("#msg_btn").click(function () {
+            $(".new_message_dialog").dialog("open");
+        });
+
+        $("#edit_bio_dialog").dialog({
+            autoOpen: false,
+            width: 500,
+            height: 400,
+            modal: true
+        });
+        $("#editBioLink").click(function (e) {
+            e.preventDefault();
+            $("#edit_bio_dialog").dialog("open");
+        });
+
+        $("#edit_company_dialog").dialog({
+            autoOpen: false,
+            width: 500,
+            height: 300,
+            modal: true
+        });
+        $("#add_company_link").click(function (e) {
+            e.preventDefault();
+            $("#edit_company_dialog").dialog("open");
+        });
+        $("#edit_company_link").click(function (e) {
+            e.preventDefault();
+            $("#edit_company_dialog").dialog("open");
+        });
+
+        $("#edit_address_dialog").dialog({
+            autoOpen: false,
+            width: 500,
+            height: 550,
+            modal: true
+        });
+        $("#editAddressLink").click(function (e) {
+            e.preventDefault();
+            $("#edit_address_dialog").dialog("open");
+        });
+
+    });
+</script>
+
+<script>
+    function isEmptyField(field){
+        if (field.val() == '') {
+            field.css('background', 'pink');
+            return 1;
+        }
+        field.css('background', '');
+        return 0;
+    }
+
+    function isDropdownSelected(fieldid) {
+        var val = $('#' + fieldid + ' option:selected').val();
+        //alert(val);
+        if (val.length > 0) {
+            $('#' + fieldid).css('background', '');
+            return 0; 
+        }
+        $('#' + fieldid).css('background', 'pink');
+        return 1;
+        
+    }
+
+    function isValidPostalCode(field) {
+        var regEx = /[a-zA-Z][0-9][a-zA-Z](-| |)[0-9][a-zA-Z][0-9]/;
+        if (regEx.test(field.val())) {
+            field.css('background', '');
+            return 0;
+        }
+        field.css('background', 'pink');
+        return 1;
+    }
+
+    function isValidPhoneNumber(field) {
+        var nums = '0123456789';
+        var phone = field.val();
+        if (phone.length < 10 || phone.length > 11) {
+            field.css('background', 'pink');
+            return 1;
+        }
+        for (var i = 0; i < phone.length; ++i) {
+            if (nums.indexOf([i]) == -1) {
+                field.css('background', 'pink');
+                return 1;
+            }
+        }
+        field.css('background', '');
+        return 0;
+    }
+</script>
+
+<script type="text/javascript">
+
+    var deleteIds = [];
+
+    $(".ad_checkbox").each(function () {
+        $(this).find("input[type=checkbox]").click(function () {
+            event.stopPropagation();
+            deleteIds = [];
+            $(".table_results").find("input[type=checkbox]:checked").each(function () {
+                deleteIds.push(parseInt($(this).prop("id")));
+            });
+            if (deleteIds.length > 0)
+                $("#deleteMultipleAds").show();
+            else
+                $("#deleteMultipleAds").hide();
+        });
+    });
+
+    $("#selectAll").click(function (e) {
+        e.preventDefault();
+        deleteIds = [];
+        $(".table_results").find("input[type=checkbox]").each(function () {
+            $(this).attr("checked", "checked");
+            deleteIds.push(parseInt($(this).prop("id")));
+        });
+        $("#deleteMultipleAds").show();
+    });
+
+    $("#deleteMultipleAds").click(function (e) {
+        e.preventDefault();
+        if (confirm('Are you sure you want to delete selected ads from your list?')) {
+            $.ajax({
+                data: { ids: deleteIds },
+                type: "POST",
+                url: '@Url.Action("DeleteMultiple", "JobAd")',
+                traditional: true,
+                success: function () {
+                    window.location.reload();
+                }
+            });
+            $(this).hide();
+        } else {
+            // Do nothing!
+        }
+
+    });
+
+    $('#update_address_btn').click(function (e) {
+       //validate required options
+       var errorcount = isEmptyField($('#address_addressLine1')) + isValidPostalCode($('#address_postalCode'))
+            + isDropdownSelected('address_city_provinceID') + isDropdownSelected('address_cityID');
+       if (errorcount == 0) 
+            return true;
+       e.preventDefault();
+    });
+
+    function validatePhoneDialog(updateFormId) {
+        //alert(updateFormId);
+        var errorcount;
+        if(updateFormId != null)
+            errorcount = isDropdownSelected(updateFormId + ' [name="phoneTypeID"]') + isValidPhoneNumber($('#'+updateFormId+' [name="phoneNo"]'));
+        else
+            errorcount = isDropdownSelected('phoneType') + isValidPhoneNumber($('#phoneNo'));
+        //alert(errorcount);
+        if (errorcount == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    $('.update_phone_btn').click(function (e) {
+        if (validatePhoneDialog($(this).parents('[id^="edit_phone_dialog"]').attr('id')))
+            return true;
+        e.preventDefault();
+    });
+
+    $('#send_msg_btn').click(function (e) {
+        var errorcount = isEmptyField($('#msgSubject')) + isEmptyField($('#msgBody'));
+        if (errorcount == 0)
+            return true;
+        e.preventDefault();
+    });
+    function postReviewHelpful(reviewId, isGood) {
+        $.ajax({
+            data: { reviewId: reviewId, good: isGood },
+            type: "POST",
+            url: '@Url.Action("PostReviewHelpful", "Review")',
+            success: function () {
+                window.location.reload();
+            }
+        });
+    }
+</script>

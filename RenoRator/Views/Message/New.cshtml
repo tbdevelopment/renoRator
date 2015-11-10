@@ -1,0 +1,42 @@
+﻿@model RenoRator.Models.message
+@using System.Linq
+
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/shared/main_layout.cshtml";
+}
+
+<div class="two_column_right middle">
+    <div class="content_col_header">
+        <h2>New Message</h2>
+    </div>
+    <div class="form_container">
+        @using (Html.BeginForm()) {
+            @Html.ValidationSummary(true)
+
+            @*<div class="form-row">
+                <label>Receiver:</label>
+                @Html.ValidationMessageFor(model => model.receiverID)
+                @Html.EditorFor(model => model.receiverID)
+            </div>*@
+            @Html.HiddenFor(model => model.receiverID)
+            
+            <div class="form-row">
+                <label>Subject:</label>
+                @Html.ValidationMessageFor(model => model.msgSubject)
+                @Html.EditorFor(model => model.msgSubject)
+            </div>
+
+            <div class="form-row">
+                <label>Message:</label>
+                @Html.ValidationMessageFor(model => model.msgBody)
+                @Html.TextAreaFor(model => model.msgBody, new { @rows = 14, @cols = 60 })
+            </div>
+
+            <p>
+                <input type="submit" value="Send" class="orange_btn" />
+            </p>
+
+        }
+    </div>
+</div>

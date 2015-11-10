@@ -1,0 +1,129 @@
+﻿@model RenoRator.Models.message
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/shared/main_layout.cshtml";
+}
+
+@if (Model != null)
+{
+    var oUser = Model.senderID == Convert.ToInt32(Session["userID"]) ? Model.user1 : Model.user;
+    <div class="new_message_dialog">
+            <div style="text-align:center;">
+                <h2>New Message to @oUser.fname @oUser.lname</h2>
+            </div>
+            <div class="form_container">
+                @using (Html.BeginForm("New", "Message", FormMethod.Post))
+                {
+                    @Html.ValidationSummary(true)
+                    @Html.Hidden("receiverID", oUser.userID);
+                    <div class="form-row">
+                        <label>Subject:</label>
+                        @Html.ValidationMessageFor(model => model.msgSubject)
+                        @Html.EditorFor(model => model.msgSubject)
+                    </div>
+
+                    <div class="form-row">
+                        <label>Message:</label>
+                        @Html.ValidationMessageFor(model => model.msgBody)
+                        @Html.TextArea("msgBody", "", new { @rows = 8, @cols = 60})
+                    </div>
+
+                    <p>
+                        <input type="submit" value="Send" class="orange_btn" />
+                    </p>
+
+                }
+            </div>
+    </div>
+}
+<div class="three_column_left" style="padding-bottom:10px;">
+    <div class="content_col_header">
+        <h3>Inbox</h3>
+    </div>
+    @Html.ActionLink("Received Messages", "Received")
+    <br />
+    @Html.ActionLink("Sent Messages", "Sent")    
+
+</div>
+<div class="three_column_middle">
+    <div class="content_col_header">
+        <h3>View Message</h3>
+    </div>
+    @if (Model != null)
+    {
+        <table class="table_result" style="width:100%;">
+                <tr class="table_results_row">
+                    <td>
+                        <div class="thumbnail thumb_img" style="margin:10px;">
+                            <img style="display:inline-block;height:50px;" src="../../public/img/icons/user.png">
+                        </div>
+                        <div style="margin:10px;">
+                            @if (Model.senderID == Convert.ToInt32(Session["userID"]))
+                            {
+                                var name = Model.user1.fname + " " + Model.user1.lname;
+                                <strong>To:  <a href="/User/Profile?id=@Model.receiverID">@name</a></strong>
+                            }
+                            else
+                            {
+                                var name = Model.user.fname + " " + Model.user.lname;
+                                <strong>From:  <a href="/User/Profile?id=@Model.senderID">@name</a></strong>
+                            }
+                            <br />
+                            <strong>Subject:</strong>  @Html.DisplayFor(modelItem => Model.msgSubject)
+                            <br />
+                            <strong>Sent at:</strong>  @Html.DisplayFor(modelItem => Model.msgDate)
+                            <br /><br />
+                            <strong>Message:</strong>  @Html.Raw(Model.msgBody.Replace("\n", "<br/>")) 
+                            <br /><br />
+                            <a id="delete_link" href="#">Delete Message</a>
+                            <a class="orange_btn reply_link" href="#">Reply</a>
+                        </div>
+                    </td>
+                </tr>
+        </table>
+    }
+    else
+    {
+        <div class="three_column_middle">
+            <p>Sorry, message does not exist.</p>
+        </div>
+    }
+</div>
+<div class="three_column_right">
+    <div class="content_col_header">
+        <h3>Ads</h3>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $(".new_message_dialog").dialog({
+            autoOpen: false,
+            width: 500,
+            height: 500,
+            modal: true
+        });
+        $(".reply_link").click(function () {
+            $(".new_message_dialog").dialog("open");
+        });
+
+        $("#delete_link").click(function (e) {
+            e.preventDefault();
+            if (confirm('Are you sure you want to delete a message from your list?')) {
+                $.ajax({
+                    data: { id: '@Model.messageID' },
+                    type: "POST",
+                    url: '@Url.Action("Delete", "Message")',
+                    traditional: true,
+                    success: function () {
+                        window.location = "/Message/Received";
+                    }
+                });
+                $(this).hide();
+            } else {
+                // Do nothing!
+            }
+
+        });
+    });
+</script>

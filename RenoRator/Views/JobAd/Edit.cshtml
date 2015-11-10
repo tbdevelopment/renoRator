@@ -1,0 +1,170 @@
+﻿@model RenoRator.Models.JobAd
+@using System.Linq
+
+@{
+    ViewBag.Title = "Edit Ad";
+    Layout = "~/Views/shared/main_layout.cshtml";
+}
+
+@System.Web.Optimization.Styles.Render("~/bundles/css")
+<div class="post_ad_image_uploader">
+    @Html.Partial("image_uploader")
+</div>
+<div class="two_column_right middle">
+    <div class="content_col_header">
+        <h2>Edit Job Ad</h2>
+    </div>
+    <div class="form_container">
+
+        @using (Html.BeginForm()) {
+            @Html.ValidationSummary(true)
+
+            <div class="form-row">
+                <label>Title:</label>
+                @Html.ValidationMessageFor(model => model.title)
+                @Html.EditorFor(model => model.title)
+            </div>
+            
+            <div class="form-row">
+                <label>Address Line 1:</label>
+                @Html.ValidationMessageFor(model => model.address.addressLine1)
+                @Html.EditorFor(model => model.address.addressLine1)
+            </div>
+
+            <div class="form-row">
+                <label>Address Line 2:</label>
+                @Html.ValidationMessageFor(model => model.address.addressLine2)
+                @Html.EditorFor(model => model.address.addressLine2)
+            </div>
+
+            <div class="form-row">
+                <label>Postal Code:</label>
+                @Html.ValidationMessageFor(model => model.address.postalCode)
+                @Html.EditorFor(model => model.address.postalCode, new { @maxLength = 6 })
+            </div>
+
+            <div class="form-row">
+                <label>Province:</label>
+                @Html.ValidationMessageFor(model => model.address.city.provinceID)
+                <div class="styled-select">
+                    @Html.DropDownList("address.city.provinceID", ViewBag.provinces as SelectList, "Select a province", new { id = "address.city.provinceID" })
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <label>City:</label>
+                @Html.ValidationMessageFor(model => model.address.cityID)
+                <div class="styled-select">
+                    @Html.DropDownList("address.cityID", ViewBag.cities as SelectList, "Select a city", new { id = "address.cityID" })
+                </div>
+            </div>
+
+            <div class="form-row">
+                <label>Price Range:</label>
+                @Html.ValidationMessageFor(model => model.priceRangeID)
+                <div class="styled-select">
+                    @Html.DropDownList("priceRangeID", ViewBag.priceranges as SelectList, "Select a price range", new { id = "priceRangeID" })
+                </div>
+            </div>
+        <div class="form-row">
+            <label>Tags (Comma separate)</label>
+            @Html.EditorFor(model => model.tags)
+            @Html.ValidationMessageFor(model => model.tags)
+        </div>
+
+        <div class="form-row">
+            <label>Description</label>
+            @Html.TextAreaFor(model => model.description, new { @rows = 14, @cols = 60 })
+            @Html.ValidationMessageFor(model => model.description)
+        </div>
+
+         
+        if(Model.gallery != null && Model.gallery.photos.Count > 0)
+        {
+            @Html.HiddenFor(model => model.galleryID)
+            <h3>Images</h3>
+            foreach(RenoRator.Models.Photo p in Model.gallery.photos)
+            {
+                <div class="edit_photo_display" style="width:32%;float:left;padding:15px 0;">
+                    <div style="width:100%;">
+                        <img src="@p.thumbPath"/>
+                    </div>                    
+                    <a style="clear:both;" href="#" data-photoid="@p.photoID" class="delete_image">Delete</a>
+                </div>
+            }
+        }
+        <div class="form-row">
+            <input type="button" id="uploadImageBtn" value="Upload Image" />
+        </div>
+
+        <div class="form-row">
+            <label>Target Completion Date (YYYY-MM-DD)</label>
+            @Html.EditorFor(model => model.targetEndDate)
+            @Html.ValidationMessageFor(model => model.targetEndDate)
+        </div>
+            @Html.HiddenFor(model => model.jobAdID)
+
+        <p>
+            <input type="submit" value="Update" class="orange_btn" onclick="return saveImages();" />
+        </p>
+        <input hidden="hidden" id="uploadedImages" name="uploadedImages" />
+        }
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(function () {
+        $("#targetEndDate").datepicker({ dateFormat: "yy-mm-dd" });
+        $(".post_ad_image_uploader").dialog({
+            autoOpen: false,
+            width: 'auto',
+            height: 'auto',
+            modal: true
+        });
+        $("#uploadImageBtn").click(function () {
+            $(".post_ad_image_uploader").dialog("open");
+        });
+
+        $(".delete_image").click(function (event) {
+            event.preventDefault();
+            var photoid = $(this).attr('data-photoid');
+            var image = $(this);
+            if (confirm('Are you sure you want to delete the photo from your ad?')) {
+                $.ajax({
+                    data: { id: photoid },
+                    url: '@Url.Action("deleteSingleImage", "JobAd")',
+                    success: function () {
+                        image.parent().remove();
+                    }
+                });
+            }
+        });
+    });
+
+     
+    function saveImages() {
+        var filenames = [];
+        $.each(uploader_files, function () {
+            filenames.push($(this)[0].name);
+        });
+        // remove dups
+        filenames = removeDuplicates(filenames);
+        $('#uploadedImages').val(filenames.join('|'));
+    }
+
+    function removeDuplicates(a) {
+        var temp = {};
+        for (var i = 0; i < a.length; i++)
+            temp[a[i]] = true;
+        var r = [];
+        for (var k in temp)
+            r.push(k);
+        return r;
+    }
+</script>
+
+@*
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}*@

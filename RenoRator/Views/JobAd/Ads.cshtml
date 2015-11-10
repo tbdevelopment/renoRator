@@ -1,0 +1,138 @@
+﻿@model IEnumerable<RenoRator.Models.JobAd>
+@using System.Linq
+
+@{
+    ViewBag.Title = "Ads";
+    Layout = "~/Views/shared/main_layout.cshtml";
+}
+
+@if (Model.Any())
+{
+    <div style="float:left;">
+        <div class="two_column_left" style="float:none;">
+            <div class="content_col_header">
+                <h3>OPTIONS</h3>
+            </div>
+            <div class="options center">
+                <a href="@Url.Action("Post", "JobAd")">
+                    <input type="submit" class="orange_btn" style="width:90%; margin:10px;" value="Create Ad"/>
+                </a>
+            </div>
+        </div>
+
+        <div class="two_column_left" style="float:none;">
+            <div class="content_col_header">
+                <h3>SELECT FILTERS</h3>
+            </div>
+        
+            <div class="filters">
+                <span>@Html.ActionLink("See All Ads", "Ads")</span>
+                <br />
+                @foreach (KeyValuePair<string, int> pair in ViewBag.tags as Dictionary<string, int>)
+                {
+                    if (String.Equals(ViewBag.tag, pair.Key))
+                    {
+                        <span><strong>(@pair.Value) @pair.Key</strong></span>
+                        <br />
+                    }
+                    else
+                    {
+                        <span>(@pair.Value)</span>
+                        @Html.ActionLink(pair.Key, "Ads", new { page = Convert.ToInt32(ViewBag.page), tag = pair.Key });
+                        <br />
+                    }
+                }
+            </div>
+        </div>
+
+    </div>
+    
+    <div class="two_column_right">
+        <div class="content_col_header">
+            <h3>Ads</h3>
+        </div>
+        <table class="tableResults">
+        @foreach (var item in Model)
+        {
+            <tr class="resultsRow">
+                <td>
+                    <div class="thumbnail thumb_img">
+                        @if (item.gallery != null)
+                        {
+                            var photo = item.gallery.photos.FirstOrDefault();
+                            if(photo != null)
+                            {
+                                if (!String.IsNullOrEmpty(photo.description))
+                                {
+                                    <img style="display:inline-block;" src="@photo.thumbPath" alt="@photo.description"/>
+                                }
+                                else
+                                {
+                                    <img style="display:inline-block;" src="@photo.thumbPath" />
+                                }
+                            }
+                            else
+                            {
+                                <img style="display:inline-block;" src="../../public/img/logo.png" alt="ad pic"/>
+                            }
+                        }
+                        else
+                        {
+                            <img style="display:inline-block;" src="../../public/img/logo.png" alt="ad pic"/>
+                        }
+                    </div>
+                </td>
+                    
+                <td>
+                    <div style="margin:10px;">
+                        <input type="hidden" value="@item.address.addressLine1" />
+                        <input type="hidden" value="@item.address.postalCode" />
+                        @{var title = item.title;}
+                        @Html.ActionLink(title, "Details", new { id = item.jobAdID }, new { @class = "detailLink" })
+                        <br />
+                        @{
+                          string desc = "";
+                          if (item.description.Length > 200)
+                          {
+                              desc = item.description.Substring(0, 200) + "...";
+                          }
+                          else
+                          {
+                              desc = item.description;
+                          }   
+                        }
+                        @desc
+                    </div>
+                </td>
+                <td class="range">
+                    <span>$@Html.DisplayFor(modelItem => item.pricerange.min) - $@Html.DisplayFor(modelItem => item.pricerange.max)</span>
+                </td>
+            </tr>
+        }
+        </table>
+        @{Html.RenderPartial("~/Views/shared/PaginationNavigation.cshtml");}
+    </div>
+}
+else
+{
+    <div class="three_column_left"></div>
+    <div class="three_column_middle" style="text-align:center;">
+        <div class="content_col_header">
+            <h3>Sorry</h3>
+        </div>
+        <p>There are no ads availible on this page. Please try again later.</p>
+    </div>
+}
+
+<script type="text/javascript">
+    $('tr').each(function (index) {
+        $(this).hover(function () {
+            $(this).addClass('rowActive');
+        }, function () {
+            $(this).removeClass('rowActive');
+        });
+        $(this).click(function(index){
+            window.location = $(this).find('.detailLink').prop('href');
+        });
+    });
+</script>

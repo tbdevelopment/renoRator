@@ -1,0 +1,132 @@
+﻿@model IEnumerable<RenoRator.Models.message>
+@using System.Linq
+@{
+    ViewBag.Title = "Sent";
+    Layout = "~/Views/shared/main_layout.cshtml";
+}
+
+<div class="three_column_left">
+    <div class="content_col_header">
+        <h3>Inbox</h3>
+    </div>
+    <div class="inbox_links">
+        @Html.ActionLink("Received Messages", "Received")
+    </div>
+    <div class="inbox_links selected_tab">
+        @Html.ActionLink("Sent Messages", "Sent")  
+    </div>
+    
+      
+</div>
+<div class="three_column_middle">
+    <div class="content_col_header">
+        <h3>Sent Messages</h3>
+    </div>
+    @if (Model.Any())
+    {
+        <table class="tableResults" style="width:100%;">
+            <tr>
+                <td style="border-bottom:1px solid #00AFEF;padding:5px;">
+                    <a href="#" id="deleteMultipleMsg" style="float:left;display:none;">Delete Selected</a>
+                    <a href="#" id="selectAll" style="float:right;">Select All</a>
+                </td>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr class="resultsRow">
+                    <td style="border-bottom:1px solid black;">
+                        <div class="thumbnail thumb_img" style="margin:10px;">
+                            <img style="display:inline-block;height:50px;" src="../../public/img/icons/user.png">
+                        </div>
+                        <div class="msg_checkbox" style="float:right;">
+                            <input type="checkbox" id="@item.messageID" />
+                        </div>
+                        <div style="margin:10px;">
+                            @{var name = item.user1.fname + " " + item.user1.lname;}
+                            <strong>To:  <a href="/User/Profile?id=@item.receiverID">@name</a></strong>
+                            <br />
+                            <strong>Subject:</strong>  @Html.ActionLink(item.msgSubject, "View", new { id = item.messageID }, new { @class = "msgLink" })
+                            <br /><br />
+                            <strong>Sent at:</strong>  @Html.DisplayFor(modelItem => item.msgDate)
+                        </div>
+                        
+                    </td>
+                </tr>
+            }
+        </table>
+        Html.RenderPartial("~/Views/shared/PaginationNavigation.cshtml");
+    }
+    else
+    {
+        <div class="three_column_middle">
+            <p style="margin:10px">Sorry, you have not sent any messages yet.</p>
+        </div>
+    }
+</div>
+<div class="three_column_right">
+    <div class="content_col_header">
+        <h3>Ads</h3>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    //$("tr").on("mouseover", function () { $(this).addClass('table_results_row_active'); });
+    $('.resultsRow').each(function (index) {
+        $(this).hover(function () {
+            $(this).addClass('rowActive');
+        }, function () {
+            $(this).removeClass('rowActive');
+        });
+
+        $(this).click(function (index) {
+            window.location = $(this).find('.msgLink').prop('href');
+        });
+    });
+
+    var deleteIds = [];
+
+    $(".msg_checkbox").each(function () {
+        $(this).find("input[type=checkbox]").click(function () {
+            event.stopPropagation();
+            deleteIds = [];
+            $(".tableResults").find("input[type=checkbox]:checked").each(function () {
+                deleteIds.push(parseInt($(this).prop("id")));
+            });
+            if (deleteIds.length > 0)
+                $("#deleteMultipleMsg").show();
+            else
+                $("#deleteMultipleMsg").hide();
+        });
+    });
+
+    $("#selectAll").click(function (e) {
+        e.preventDefault();
+        deleteIds = [];
+        $(".tableResults").find("input[type=checkbox]").each(function () {
+            $(this).attr("checked", "checked");
+            deleteIds.push(parseInt($(this).prop("id")));
+        });
+        $("#deleteMultipleMsg").show();
+    });
+
+    $("#deleteMultipleMsg").click(function (e) {
+        e.preventDefault();
+        if (confirm('Are you sure you want to delete selected messages from your list?')) {
+            $.ajax({
+                data: { ids : deleteIds },
+                type: "POST",
+                url: '@Url.Action("DeleteMultiple", "Message")',
+                traditional: true,
+                success: function () {
+                    window.location = "/Message/Received";
+                }
+            });
+            $(this).hide();
+        } else {
+            // Do nothing!
+        }
+
+    });
+</script>
+
